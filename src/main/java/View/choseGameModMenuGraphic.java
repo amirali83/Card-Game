@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class GameHistoryMenuGraphic extends Application {
-    public GameHistoryMenuGraphic() {
+public class choseGameModMenuGraphic extends Application {
+    public choseGameModMenuGraphic() {
 
     }
 
@@ -19,7 +19,7 @@ public class GameHistoryMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        stage.setTitle("Shop Menu");
+        stage.setTitle("Choose Mode");
 
         GraphicController.setStage(stage);
         GraphicController.setController(controller);

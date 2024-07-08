@@ -16,9 +16,16 @@ public class mainController {
     User user = GraphicController.getUser();
 
     public void startGame(MouseEvent mouseEvent) {
+
     }
 
     public void GameHistory(MouseEvent mouseEvent) {
+        GameHistoryMenuGraphic menu = new GameHistoryMenuGraphic();
+        try {
+            menu.start(GraphicController.getStage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void Shop(MouseEvent mouseEvent) {
