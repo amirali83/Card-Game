@@ -277,7 +277,7 @@ public class AppController {
             return Outputs.WRONG_PASSWORD;
         }
         timesIncorect = 0;
-        if (opponentUser == null) {
+        if (GraphicController.getUser() == null) {
             currentUser = tempUser;
             GraphicController.setUser(currentUser);
         }
@@ -287,13 +287,12 @@ public class AppController {
         }
         System.out.println("user logged in successfully!");
 
-        if (!currentUser.getRecievedStarterPack())
-            getStarterPack(currentUser);
-        if (opponentUser != null)
-            if (!opponentUser.getRecievedStarterPack())
-                getStarterPack(opponentUser);
-        if (opponentUser == null) return Outputs.CURRENT_USER_LOGGED_IN_SUCCESSFULY;
-        else return Outputs.OPPONENT_USER_LOGGED_IN_SUCCESSFULY;
+        if (!GraphicController.getUser().getRecievedStarterPack())
+            getStarterPack(GraphicController.getUser());
+        if (GraphicController.getOpponent() != null)
+            if (!GraphicController.getOpponent().getRecievedStarterPack())
+                getStarterPack(GraphicController.getOpponent());
+        return Outputs.CURRENT_USER_LOGGED_IN_SUCCESSFULY;
     }
 
     private static void getStarterPack(User user) {

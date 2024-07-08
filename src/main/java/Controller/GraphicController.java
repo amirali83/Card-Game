@@ -13,8 +13,8 @@ public class GraphicController {
     private static Pane pane;
     private static ModuleLayer.Controller controller;
     private static String command;
-    private static User user;
-    private static User opponent;
+    private static User user = null;
+    private static User opponent = null;
     private static ArrayList<Card> allCards = new ArrayList<>();
 
     public static void setStage(Stage stage) {GraphicController.stage = stage;}

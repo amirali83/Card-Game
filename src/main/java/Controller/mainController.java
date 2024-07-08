@@ -16,7 +16,12 @@ public class mainController {
     User user = GraphicController.getUser();
 
     public void startGame(MouseEvent mouseEvent) {
-
+        choseGameModMenuGraphic menu = new choseGameModMenuGraphic();
+        try {
+            menu.start(GraphicController.getStage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void GameHistory(MouseEvent mouseEvent) {

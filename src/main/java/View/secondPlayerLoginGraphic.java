@@ -7,19 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class choseGameModMenuGraphic extends Application {
-    public choseGameModMenuGraphic() {
+public class secondPlayerLoginGraphic extends Application {
+    public secondPlayerLoginGraphic() {
 
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/choseModMenu.fxml"));
+        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/secondPlayerLogin.fxml"));
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        stage.setTitle("Choose Mode");
+        stage.setTitle("Login");
 
         GraphicController.setStage(stage);
         GraphicController.setController(controller);

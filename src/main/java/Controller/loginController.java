@@ -43,11 +43,23 @@ public class loginController {
                 alert.setHeaderText("Starter Pack Recieved");
                 alert.showAndWait();
             }
-            mainMenuGraphic menu = new mainMenuGraphic();
-            try {
-                menu.start(GraphicController.getStage());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            if (GraphicController.getOpponent() == null) {
+                System.out.println("LOG IN AGAIN");
+                mainMenuGraphic menu = new mainMenuGraphic();
+                try {
+                    menu.start(GraphicController.getStage());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else {
+                System.out.println("GO TO GAME");
+                playMenuGraphic menu = new playMenuGraphic();
+                try {
+                    menu.start(GraphicController.getStage());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

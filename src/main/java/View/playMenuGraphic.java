@@ -7,19 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class choseGameModMenuGraphic extends Application {
-    public choseGameModMenuGraphic() {
+public class playMenuGraphic extends Application {
+    public playMenuGraphic() {
 
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("123454323454323432");
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/choseModMenu.fxml"));
+        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/playMenu.fxml"));
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        stage.setTitle("Choose Mode");
+        stage.setTitle("play Menu");
+        stage.centerOnScreen();
 
         GraphicController.setStage(stage);
         GraphicController.setController(controller);
