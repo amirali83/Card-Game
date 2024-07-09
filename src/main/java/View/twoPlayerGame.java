@@ -1,6 +1,12 @@
 package View;
 
+import Controller.GraphicController;
 import Module.*;
+
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,91 +32,97 @@ public class twoPlayerGame {
     private static int winner;
     private static int []live = new int[2];
 
-    public static int start(User user1, User user2, Scanner sc) {
-        twoPlayerGame.sc = sc;
+    public static int start(User user1, User user2) {
         twoPlayerGame.users[0] = user1;
         twoPlayerGame.users[1] = user2;
         live[0] = user1.getHP();
         live[1] = user2.getHP();
+        GraphicController.setLives(live);
 
-        System.out.println("Select first player character");
-        String command = sc.nextLine();
-        if (Inputs.SELECT_CHARACTER.getMatcher(command).matches())
-            chars[0] = selectCh(Inputs.SELECT_CHARACTER.getMatcher(command));
-        else {
-            System.out.println("Invalid input");
-            twoPlayerGame.start(user1, user2, sc);
-            return -1;
-        }
-        System.out.println("Select second player character");
-        command = sc.nextLine();
-        if (Inputs.SELECT_CHARACTER.getMatcher(command).matches())
-            chars[1] = selectCh(Inputs.SELECT_CHARACTER.getMatcher(command));
-        else {
-            System.out.println("Invalid input");
-            twoPlayerGame.start(user1, user2, sc);
-            return -1;
-        }
+//        System.out.println("Select first player character");
+//        String command = sc.nextLine();
+//        if (Inputs.SELECT_CHARACTER.getMatcher(command).matches())
+//            chars[0] = selectCh(Inputs.SELECT_CHARACTER.getMatcher(command));
+//        else {
+//            System.out.println("Invalid input");
+//            twoPlayerGame.start(user1, user2, sc);
+//            return -1;
+//        }
+//        System.out.println("Select second player character");
+//        command = sc.nextLine();
+//        if (Inputs.SELECT_CHARACTER.getMatcher(command).matches())
+//            chars[1] = selectCh(Inputs.SELECT_CHARACTER.getMatcher(command));
+//        else {
+//            System.out.println("Invalid input");
+//            twoPlayerGame.start(user1, user2, sc);
+//            return -1;
+//        }
 
         Random random = new Random();
         int f = Math.abs(random.nextInt()) % 21, s = Math.abs(random.nextInt()) % 21;
         for (int i = 0; i < 21; i++) {
             timeLines[0][i] = new Card();
             timeLines[1][i] = new Card();
-            if (i == f)
+            if (i == f) {
                 timeLines[0][i].setCardName("null");
-            if (i == s)
+                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
+            }
+            if (i == s) {
                 timeLines[1][i].setCardName("null");
+                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
+            }
         }
         for (int i = 0; i < 5; i++) {
             f = Math.abs(random.nextInt()) % user1.getCards().size();
             s = Math.abs(random.nextInt()) % user2.getCards().size();
             try {
                 playersdeck[0][i] = (Card) user1.getCards().get(f).clone();
+                GraphicController.getPlayersDeck()[0][i].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[0][i].getImageLink()).toExternalForm())));
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
             try {
                 playersdeck[1][i] = (Card) user2.getCards().get(s).clone();
+                System.out.println(playersdeck[1][i].getImageLink());
+                GraphicController.getPlayersDeck()[1][i].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[1][i].getImageLink()).toExternalForm())));
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         }
         playersdeck[0][5] = new Card();
         playersdeck[1][5] = new Card();
+        GraphicController.getPlayersDeck()[0][5].setFill(Color.BLACK);
+        GraphicController.getPlayersDeck()[1][5].setFill(Color.BLACK);
         playersDamage[0] = playersDamage[1] = 0;
+        GraphicController.setPlayersDamage(playersDamage);
         playersRound[0] = playersRound[1] = 4;
+        GraphicController.setPlayersRound(playersRound);
         usedEspecial[0] = new ArrayList<>();
         usedEspecial[1] = new ArrayList<>();
         inTimeLine = false;
         gameFinished = false;
         drawGrphic();
-        return startGame();
-    }
-
-    private static int startGame() {
         Random r = new Random();
         inCharge = Math.abs(r.nextInt()) % 2;
         gameStarter = inCharge;
+        GraphicController.setInCharge(inCharge);
         System.out.println("Player in charge " + (inCharge + 1));
-        String command = sc.nextLine();
-        while (!gameFinished) {
-            if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
-                showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
-            } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
-                placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
-            } else if (Inputs.HELP.getMatcher(command).matches()){
-                help();
-            } else
-                System.out.println("invalid input");
-            if (gameFinished)
-                break;
-            System.out.println("Player in charge " + (inCharge + 1));
-            command = sc.nextLine();
-        }
-        if (winner == 0) return 1;
-        if (winner == 1) return 2;
         return 0;
+    }
+
+    public static Outputs startGame(String command) {
+        if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
+            showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
+        } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
+            return placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
+        } else if (Inputs.HELP.getMatcher(command).matches()){
+            help();
+        } else
+            System.out.println("invalid input");
+        //if (gameFinished)
+        //break;
+        System.out.println("Player in charge " + (inCharge + 1));
+        return null;
     }
 
     private static void help() {
@@ -119,37 +131,36 @@ public class twoPlayerGame {
         System.out.println();
     }
 
-    private static void placeCard(Matcher matcher) {
+    private static Outputs placeCard(Matcher matcher) {
+        int notInCharge;
+        if (inCharge == 0) notInCharge = 1;
+        else notInCharge = 0;
         matcher.find();
-        if (!matcher.group("number").matches("[1-5]")) {
-            System.out.println("card number invalid");
-            return;
-        }
-        //        if (!matcher.group("index").matches("[0-21]")) {
-//            System.out.println("card index invalid");
-//            return;
-//        }
         int cardIndex = Integer.parseInt(matcher.group("number")) - 1;
         int timelineIndex = Integer.parseInt(matcher.group("index")) - 1;
         if (playersdeck[inCharge][cardIndex].getDuration() != 0) {
             for (int i = 0; i < playersdeck[inCharge][cardIndex].getDuration(); i++) {
                 if (timeLines[inCharge][timelineIndex + i] == null) {
                     System.out.println("you cant place your card here");
-                    return;
+                    return Outputs.CANT_PLACE_CARD_HERE;
                 }
                 if (!timeLines[inCharge][timelineIndex + i].getCardName().equals("empty")) {
                     System.out.println("you cant place your card here");
-                    return;
+                    return Outputs.CANT_PLACE_CARD_HERE;
                 }
             }
-            for (int i = 0; i < playersdeck[inCharge][cardIndex].getDuration(); i++)
+            for (int i = 0; i < playersdeck[inCharge][cardIndex].getDuration(); i++) {
                 timeLines[inCharge][timelineIndex + i] = playersdeck[inCharge][cardIndex];
+                GraphicController.getTimlines()[notInCharge][timelineIndex + 1 + i].setFill(Color.ORANGE);
+            }
         }
         else
             handleSpecial((EspecialCard) playersdeck[inCharge][cardIndex]);
 
         playersRound[inCharge]--;
+        GraphicController.getPlayersRound()[inCharge]--;
         playersDamage[0] = playersDamage[1] = 0;
+        GraphicController.getPlayersDamage()[0] = GraphicController.getPlayersDamage()[1] = 0;
         for (int i = 0; i < 21; i++) {
             checkDamage(i);
             if (timeLines[0][i].getClass().equals(NormalCard.class))
@@ -163,6 +174,8 @@ public class twoPlayerGame {
             if (cardAD1 > cardAD2) playersDamage[0] += cardDamage1;
             else if (cardAD1 < cardAD2) playersDamage[1] += cardDamage2;
         }
+        GraphicController.getPlayersDamage()[0] = playersDamage[0];
+        GraphicController.getPlayersDamage()[1] = playersDamage[1];
 
         replaceUsedCard(cardIndex);
 
@@ -196,9 +209,15 @@ public class twoPlayerGame {
             inTimeLine = false;
         }
 
-        if (inCharge == 0) inCharge = 1;
-        else inCharge = 0;
-
+        if (inCharge == 0) {
+            inCharge = 1;
+            GraphicController.setInCharge(inCharge);
+        }
+        else {
+            inCharge = 0;
+            GraphicController.setInCharge(inCharge);
+        }
+        return Outputs.PASSWORD_NOT_STRONG_ENOUGH;
     }
 
     private static void getTrophy(User user1, User user2) {

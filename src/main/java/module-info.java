@@ -3,6 +3,7 @@ module ProjectPhase1 {
     requires javafx.media;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
 
     exports Controller;
     exports Module;

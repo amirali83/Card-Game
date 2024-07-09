@@ -81,7 +81,7 @@ public class AppController {
         if (mod.equals("1")) {
             if (!loginSecondPlayer(sc))
                 return;
-            result = twoPlayerGame.start(currentUser, opponentUser, sc);
+            result = twoPlayerGame.start(currentUser, opponentUser);
         } else if (mod.equals("2")) {
             if (!loginSecondPlayer(sc))
                 return;
@@ -92,7 +92,7 @@ public class AppController {
                 play(sc);
                 return;
             }
-            result = twoPlayerGame.start(currentUser, opponentUser, sc);
+            result = twoPlayerGame.start(currentUser, opponentUser);
             if (result == 0) {
                 currentUser.setCoins(currentUser.getCoins() + bets);
                 opponentUser.setCoins(opponentUser.getCoins() - bets);
@@ -156,17 +156,17 @@ public class AppController {
     }
 
     private static void buildEspecialCards() {
-        AppData.allCards.add(new EspecialCard ("shield", "it breaks any card with any damage", 100, 1));
-        AppData.allCards.add(new EspecialCard ("heal", "give some hp to the player (no card can break this)", 100, 1));
-        AppData.allCards.add(new EspecialCard ("power buffer", "one random card will be buff (no space will be taken)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("hole changer", "change both players holes (block with card wont be replaced)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("fixer", "fix the hole (no space will be taken)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("reducer", "it will reduce one round of the game (no space will be taken)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("thief", "it will get one random card from opponent and add it to your hand (no space will be taken)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("changer", "it will get two random cards from opponent and reduce ones damage and anothers power (no space will be taken)", 100, 0));
-        AppData.allCards.add(new EspecialCard ("copy", "it will copy one of your own cards (no space will be taken)", 100, 0));
+        AppData.allCards.add(new EspecialCard ("shield", "it breaks any card with any damage", 100, 1, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("heal", "give some hp to the player (no card can break this)", 100, 1, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("power buffer", "one random card will be buff (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("hole changer", "change both players holes (block with card wont be replaced)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("fixer", "fix the hole (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("reducer", "it will reduce one round of the game (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("thief", "it will get one random card from opponent and add it to your hand (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("changer", "it will get two random cards from opponent and reduce ones damage and anothers power (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
+        AppData.allCards.add(new EspecialCard ("copy", "it will copy one of your own cards (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
         //emtiazi
-        AppData.allCards.add(new EspecialCard ("hider", "for the next round opponent will not be able to see his/her cards (no space will be taken)", 100, 0));
+        AppData.allCards.add(new EspecialCard ("hider", "for the next round opponent will not be able to see his/her cards (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
     }
 
     private static void shopMenu(Scanner sc) {

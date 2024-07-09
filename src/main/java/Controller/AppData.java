@@ -37,7 +37,7 @@ public class AppData {
             s = c.createStatement();
             sql = "SELECT * FROM NORMALCARD";
             rs = s.executeQuery(sql);
-            String cardName, cardCh;
+            String cardName, cardCh, link;
             int cardValue, cartAD, cartDuration, playerDamage, upgradeLevel, upgradeCost, level;
             GameCh ch;
             while (rs.next()) {
@@ -49,9 +49,10 @@ public class AppData {
                 upgradeLevel = rs.getInt("upgradeLevel");
                 upgradeCost = rs.getInt("upgradeCost");
                 cardCh = rs.getString("Ch");
+                link = rs.getString("ImageLink");
                 ch = selectCh(cardCh);
 
-                AppData.allCards.add(new NormalCard(cardName, cardValue, cartAD, cartDuration, playerDamage, upgradeLevel, upgradeCost, ch));
+                AppData.allCards.add(new NormalCard(cardName, cardValue, cartAD, cartDuration, playerDamage, upgradeLevel, upgradeCost, ch, link));
             }
             GraphicController.setAllCards(AppData.allCards);
             //System.out.println("cards loaded successfully");
@@ -107,9 +108,9 @@ public class AppData {
             s = null;
             c = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "Amirali9363?");
             s = c.createStatement();
-            sql = "INSERT INTO normalcard (cardName, cardValue, cardAD, cardDuration, playerDamage, upgradeLevel, upgradeCost) Values ('"
+            sql = "INSERT INTO normalcard (cardName, cardValue, cardAD, cardDuration, playerDamage, upgradeLevel, upgradeCost, ImageLink) Values ('"
                     + card.getCardName() + "', " + card.getCardValue() + ", " + card.getCardAttack_Deffence() + ", " +
-                    card.getDuration() + ", " + card.getPlayerDamage() + ", " + card.getUpgradeLevel() + ", " + card.getUpgradeCost()
+                    card.getDuration() + ", " + card.getPlayerDamage() + ", " + card.getUpgradeLevel() + ", " + card.getUpgradeCost() + ", " + card.getLevel()
                     + ")";
             s.executeUpdate(sql);
         } catch (Exception e) {

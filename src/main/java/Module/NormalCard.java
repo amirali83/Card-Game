@@ -8,8 +8,8 @@ public class NormalCard extends Card {
     private int level;
     private GameCh ch = null;
 
-    public NormalCard(String cardName, int cardValue, int cardAttack_Deffence, int duration, int playerDamage, int upgradeLevel, int upgradeCost, GameCh ch) {
-        super(cardName, cardValue, duration);
+    public NormalCard(String cardName, int cardValue, int cardAttack_Deffence, int duration, int playerDamage, int upgradeLevel, int upgradeCost, GameCh ch, String imageLink) {
+        super(cardName, cardValue, duration, imageLink);
         this.cardAttack_Deffence = cardAttack_Deffence;
         this.playerDamage = playerDamage;
         this.upgradeLevel = upgradeLevel;
@@ -19,7 +19,7 @@ public class NormalCard extends Card {
     }
 
     public NormalCard(NormalCard card) {
-        super(card.getCardName(), card.getCardValue(), card.getDuration());
+        super(card.getCardName(), card.getCardValue(), card.getDuration(), card.getImageLink());
         this.cardAttack_Deffence = card.getCardAttack_Deffence();
         this.playerDamage = card.getPlayerDamage();
         this.upgradeLevel = card.getUpgradeLevel();

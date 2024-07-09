@@ -156,7 +156,7 @@ public class AdminMenu {
         GameCh Ch = getChar();
 
         System.out.println("Card added successfuly");
-        AppData.allCards.add(new NormalCard(name, cardValue, cardAttack_Defence, duration, playerDamage, upgradeLevel, upgradeCost, Ch));
+        AppData.allCards.add(new NormalCard(name, cardValue, cardAttack_Defence, duration, playerDamage, upgradeLevel, upgradeCost, Ch, ""));
         AppData.addCard((NormalCard) AppData.allCards.getLast());
     }
 
