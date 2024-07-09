@@ -19,7 +19,8 @@ public enum Outputs {
     NEW_PASSWORD_IS_THE_SAME,
     PASSWORD_CHANGED_SUCCESSFULLY,
     CANT_PLACE_CARD_HERE,
-
+    PLAYER1_WON,
+    PLAYER2_WON,
     ;
 
 }

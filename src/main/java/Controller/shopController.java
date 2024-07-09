@@ -70,27 +70,27 @@ public class shopController {
         card6.setVisible(false);
         for (int i = (pagenum - 1 ) * 6; i < Math.min(GraphicController.getAllCards().size(), pagenum * 6); i++) {
             if (i % 6 == 0) {
-                card1.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card1.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card1.setVisible(true);
             }
             else if (i % 6 == 1) {
-                card2.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card2.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card2.setVisible(true);
             }
             else if (i % 6 == 2) {
-                card3.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card3.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card3.setVisible(true);
             }
             else if (i % 6 == 3) {
-                card4.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card4.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card4.setVisible(true);
             }
             else if (i % 6 == 4) {
-                card5.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card5.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card5.setVisible(true);
             }
             else if (i % 6 == 5) {
-                card6.setFill(new ImagePattern(new Image(getClass().getResource("/CardImage/ghost1.png").toExternalForm())));
+                card6.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
                 card6.setVisible(true);
             }
         }

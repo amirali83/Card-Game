@@ -185,28 +185,29 @@ public class twoPlayerGame {
         //completeCard();
 
         if (gameStarter != inCharge) {
-            System.out.println("in timeline");
-            inTimeLine = true;
-            boolean fin = playTimeLine();
-            if (playersRound[gameStarter] == 0 || fin) {
-                drawGrphic();
-                if (users[0].getHP() > users[1].getHP()) {
-                    System.out.println("user1 won");
-                    getTrophy(users[0], users[1]);
+            if (playersRound[gameStarter] == 0) {
+                System.out.println("in timeline");
+                inTimeLine = true;
+                boolean fin = playTimeLine();
+                GraphicController.setLives(live);
+                if (fin) {
+                    drawGrphic();
+                    if (live[0] > live[1]) {
+                        System.out.println("user1 won");
+                        getTrophy(users[0], users[1]);
+                        return Outputs.PLAYER1_WON;
+                    } else if (live[0] < live[1]) {
+                        System.out.println("user2 won");
+                        getTrophy(users[1], users[0]);
+                        return Outputs.PLAYER2_WON;
+                    } else {
+                        System.out.println("draw");
+                    }
+                    gameFinished = true;
                 }
-                else if (users[0].getHP() < users[1].getHP()) {
-                    System.out.println("user2 won");
-                    getTrophy(users[1], users[0]);
-                }
-                else {
-                    System.out.println("draw");
-
-                }
-                users[0].setHP(live[0]);
-                users[1].setHP(live[1]);
-                gameFinished = true;
+                inTimeLine = false;
+                resetTimeline();
             }
-            inTimeLine = false;
         }
 
         if (inCharge == 0) {
@@ -220,18 +221,38 @@ public class twoPlayerGame {
         return Outputs.PASSWORD_NOT_STRONG_ENOUGH;
     }
 
+    private static void resetTimeline() {
+        Random random = new Random();
+        int f = Math.abs(random.nextInt()) % 21, s = Math.abs(random.nextInt()) % 21;
+        for (int i = 0; i < 21; i++) {
+            timeLines[0][i] = new Card();
+            timeLines[1][i] = new Card();
+            GraphicController.getTimlines()[0][i + 1].setFill(Color.BLUE);
+            if (i == f) {
+                timeLines[0][i].setCardName("null");
+                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
+            }
+            if (i == s) {
+                timeLines[1][i].setCardName("null");
+                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
+            }
+        }
+        playersRound[0] = playersRound[1] = 4;
+        GraphicController.getPlayersRound()[0] = GraphicController.getPlayersRound()[1] = 4;
+    }
+
     private static void getTrophy(User user1, User user2) {
-        user1.setHP(user1.getXP() + 100);
-        user2.setHP(user2.getXP() + 100);
+        user1.setXP(user1.getXP() + 100);
+        user2.setXP(user2.getXP() + 100);
         user1.setCoins(user1.getCoins() + 50);
     }
 
     private static boolean playTimeLine() {
         for (int i = 0; i < 21; i++) {
             checkDamage(i);
-            if (cardAD1 > cardAD2) users[1].setHP(users[1].getHP() - cardDamage1);
-            else if (cardAD1 < cardAD2) users[0].setHP(users[0].getHP() + cardDamage2);
-            if (users[0].getHP() <= 0 || users[1].getHP() <= 0) return true;
+            if (cardAD1 > cardAD2) live[1] -= cardDamage1;
+            else if (cardAD1 < cardAD2) live[0] -= cardDamage2;
+            if (live[0] <= 0 || live[1] <= 0) return true;
         }
         return false;
     }
@@ -279,9 +300,9 @@ public class twoPlayerGame {
 
         if (!inTimeLine) {
             if (timeLines[0][i].getCardName().equals("heal"))
-                users[0].setHP(users[0].getHP() + 50);
+                live[0] += 50;
             if (timeLines[1][i].getCardName().equals("heal"))
-                users[1].setHP(users[1].getHP() + 50);
+                live[1] += 50;
         }
     }
 
@@ -455,7 +476,7 @@ public class twoPlayerGame {
     private static void drawGrphic() {
         for (int i = 0; i < 2; i++) {
             System.out.println("Player " + (i + 1) + ": ");
-            System.out.println("Health: " + users[i].getHP());
+            System.out.println("Health: " + live[i]);
             System.out.print(playersRound[i] + " ");
             for (int j = 0; j < 21; j++) {
                 if (timeLines[i][j] != null)

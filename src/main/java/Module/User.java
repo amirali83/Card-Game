@@ -77,6 +77,7 @@ public class User {
     public void setRecievedStarterPack(boolean recieved) {this.recievedStarterPack = recieved;}
     public void setCoins(int coins) {this.coins = coins;}
     public void setHP(int hp) {this.HP = hp;}
+    public void setXP(int xp) {this.XP = xp;}
 
     public boolean hasCard(Card card) {
         if (cards.contains(card)) return true;

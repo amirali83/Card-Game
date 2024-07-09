@@ -22,6 +22,10 @@ public class playMenuController {
     public Label roundLeftP1;
     public Label DamageP2;
     public Label DamageP1;
+    public Label player1name;
+    public Label player1live;
+    public Label player2live;
+    public Label player2name;
 
     boolean bringup = false;
 
@@ -48,6 +52,10 @@ public class playMenuController {
             DamageP1.setText(Integer.toString(GraphicController.getPlayersDamage()[0]));
             if (GraphicController.getInCharge() == 0) {roundLeftP1.setTextFill(Color.RED); roundLeftP2.setTextFill(Color.BLACK);}
             if (GraphicController.getInCharge() == 1) {roundLeftP2.setTextFill(Color.RED); roundLeftP1.setTextFill(Color.BLACK);}
+            player1name.setText(GraphicController.getUser().getUsername());
+            player2name.setText(GraphicController.getOpponent().getUsername());
+            player1live.setText(Integer.toString(GraphicController.getLives()[0]));
+            player2live.setText(Integer.toString(GraphicController.getLives()[1]));
         }
     }
 
@@ -69,6 +77,8 @@ public class playMenuController {
         DamageP1.setText(Integer.toString(GraphicController.getPlayersDamage()[0]));
         if (GraphicController.getInCharge() == 0) {roundLeftP1.setTextFill(Color.RED); roundLeftP2.setTextFill(Color.BLACK);}
         if (GraphicController.getInCharge() == 1) {roundLeftP2.setTextFill(Color.RED); roundLeftP1.setTextFill(Color.BLACK);}
+        player1live.setText(Integer.toString(GraphicController.getLives()[0]));
+        player2live.setText(Integer.toString(GraphicController.getLives()[1]));
     }
 
     public void resetSelect() {
@@ -121,7 +131,12 @@ public class playMenuController {
             alert.setHeaderText("Can't place card here");
             alert.showAndWait();
         }
-        //else if (out.equals(Outputs.))
+        else if (out.equals(Outputs.PLAYER1_WON)) {
+
+        }
+        else if (out.equals(Outputs.PLAYER2_WON)) {
+
+        }
         reset();
     }
 

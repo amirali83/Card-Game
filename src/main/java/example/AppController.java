@@ -169,6 +169,9 @@ public class AppController {
         AppData.allCards.add(new EspecialCard ("hider", "for the next round opponent will not be able to see his/her cards (no space will be taken)", 100, 0, "/CardImage/ghost1.png"));
     }
 
+    //"/CardImage/acid evaporation.png"
+
+
     private static void shopMenu(Scanner sc) {
         if (currentUser == null) {
             System.out.println("No one is logged in");
