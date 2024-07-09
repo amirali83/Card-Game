@@ -21,4 +21,21 @@ public class GameHistoryData {
         this.opponentLevel = opponentLevel;
         this.trophy = trophy;
     }
+
+    public void setIndex(String index) {this.index = index;}
+    public void setDate1(String date1) {this.date1 = date1;}
+    public void setDate2(String date2) {this.date2 = date2;}
+    public void setWin(String win) {this.win = win;}
+    public void setOpponentName(String opponentName) {this.opponentName = opponentName;}
+    public void setOpponentLevel(String opponentLevel) {this.opponentLevel = opponentLevel;}
+    public void setTrophy(String trophy) {this.trophy = trophy;}
+
+    public String getIndex() {return index;}
+    public String getDate1() {return date1;}
+    public String getDate2() {return date2;}
+    public String getWin() {return win;}
+    public String getOpponentName() {return opponentName;}
+    public String getOpponentLevel() {return opponentLevel;}
+    public String getTrophy() {return trophy;}
+
 }
