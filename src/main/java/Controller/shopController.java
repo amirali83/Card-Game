@@ -171,6 +171,12 @@ public class shopController {
         card5lock.setVisible(false);
         card6lock.setVisible(false);
         card2lock.setVisible(false);
+        card1details.setVisible(false);
+        card2details.setVisible(false);
+        card3details.setVisible(false);
+        card4details.setVisible(false);
+        card5details.setVisible(false);
+        card6details.setVisible(false);
         for (int i = (pagenum - 1 ) * 6; i < Math.min(GraphicController.getAllCards().size(), pagenum * 6); i++) {
             if (i % 6 == 0) {
                 card1.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -182,6 +188,7 @@ public class shopController {
                 card1details.setWrappingWidth(130);
                 card1details.setFont(Font.font(10));
                 card1details.setTextAlignment(TextAlignment.CENTER);
+                card1details.setVisible(true);
             }
             else if (i % 6 == 1) {
                 card2.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -193,6 +200,7 @@ public class shopController {
                 card2details.setWrappingWidth(130);
                 card2details.setFont(Font.font(10));
                 card2details.setTextAlignment(TextAlignment.CENTER);
+                card2details.setVisible(true);
             }
             else if (i % 6 == 2) {
                 card3.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -204,6 +212,7 @@ public class shopController {
                 card3details.setWrappingWidth(130);
                 card3details.setFont(Font.font(10));
                 card3details.setTextAlignment(TextAlignment.CENTER);
+                card3details.setVisible(true);
             }
             else if (i % 6 == 3) {
                 card4.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -216,6 +225,7 @@ public class shopController {
                 card4details.setWrappingWidth(130);
                 card4details.setFont(Font.font(10));
                 card4details.setTextAlignment(TextAlignment.CENTER);
+                card4details.setVisible(true);
             }
             else if (i % 6 == 4) {
                 card5.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -227,6 +237,7 @@ public class shopController {
                 card5details.setWrappingWidth(130);
                 card5details.setFont(Font.font(10));
                 card5details.setTextAlignment(TextAlignment.CENTER);
+                card5details.setVisible(true);
             }
             else if (i % 6 == 5) {
                 card6.setFill(new ImagePattern(new Image(getClass().getResource(GraphicController.getAllCards().get(i).getImageLink()).toExternalForm())));
@@ -238,6 +249,7 @@ public class shopController {
                 card6details.setWrappingWidth(130);
                 card6details.setFont(Font.font(10));
                 card6details.setTextAlignment(TextAlignment.CENTER);
+                card6details.setVisible(true);
             }
         }
     }
