@@ -22,6 +22,7 @@ public enum Outputs {
     PLAYER1_WON,
     PLAYER2_WON,
     DRAW,
+    IN_TIME_LINE,
 
     ;
 

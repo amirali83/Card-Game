@@ -2,10 +2,12 @@ package Controller;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import View.*;
 import Module.*;
@@ -13,6 +15,7 @@ import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Random;
 
 public class playMenuController {
     public Rectangle timeline00, timeline01, timeline02, timeline03, timeline04, timeline05, timeline06, timeline07, timeline08, timeline09, timeline010, timeline011, timeline012, timeline013, timeline014, timeline015, timeline016, timeline017, timeline018, timeline019, timeline020, timeline021, timeline022, timeline023;
@@ -38,6 +41,10 @@ public class playMenuController {
     int chosedTimeLineIndex = -1;
     int cardIndexToShow;
     int playerIndexToShowCard;
+    private int cardType1, cardType2;
+    private int cardAD1, cardAD2;
+    private int cardDamage1, cardDamage2;
+    private Card [][]timeLines = new Card[2][21];
 
     public void bringUp(MouseEvent mouseEvent) {
         if (!bringup) {
@@ -140,33 +147,132 @@ public class playMenuController {
             alert.setHeaderText("Can't place card here");
             alert.showAndWait();
         }
-        else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON)) {
-            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            String time = localDate.getYear() + "%" + localDate.getMonthValue() + "%" + localDate.getDayOfMonth() + "%"
-                    + localTime.getHour() + "%" + localTime.getMinute() + "%" + localTime.getSecond();
-            if (out.equals(Outputs.PLAYER1_WON)) {
-                GraphicController.getUser().getGameHistory().add(time + ":1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
-                GraphicController.getOpponent().getGameHistory().add(time + ":0:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
-            } else if (out.equals(Outputs.PLAYER2_WON)) {
-                GraphicController.getUser().getGameHistory().add(time + ":0:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
-                GraphicController.getOpponent().getGameHistory().add(time + ":1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
-            } else {
-                GraphicController.getUser().getGameHistory().add(time + ":-1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
-                GraphicController.getOpponent().getGameHistory().add(time + ":-1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
-            }
-            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
-            AppData.saveDataOtherThanUsername(GraphicController.getUser());
-            GraphicController.setOpponent(null);
-            endGameMenuGraphic menu = new endGameMenuGraphic();
-            try {
-                menu.start(GraphicController.getStage());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+//        else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON)) {
+//            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
+//            LocalDate localDate = LocalDate.now();
+//            LocalTime localTime = LocalTime.now();
+//            String time = localDate.getYear() + "%" + localDate.getMonthValue() + "%" + localDate.getDayOfMonth() + "%"
+//                    + localTime.getHour() + "%" + localTime.getMinute() + "%" + localTime.getSecond();
+//            if (out.equals(Outputs.PLAYER1_WON)) {
+//                GraphicController.getUser().getGameHistory().add(time + ":1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+//                GraphicController.getOpponent().getGameHistory().add(time + ":0:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+//            } else if (out.equals(Outputs.PLAYER2_WON)) {
+//                GraphicController.getUser().getGameHistory().add(time + ":0:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+//                GraphicController.getOpponent().getGameHistory().add(time + ":1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+//            } else {
+//                GraphicController.getUser().getGameHistory().add(time + ":-1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+//                GraphicController.getOpponent().getGameHistory().add(time + ":-1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+//            }
+//            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
+//            AppData.saveDataOtherThanUsername(GraphicController.getUser());
+//            GraphicController.setOpponent(null);
+//            endGameMenuGraphic menu = new endGameMenuGraphic();
+//            try {
+//                menu.start(GraphicController.getStage());
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+        else if (out.equals(Outputs.IN_TIME_LINE)) {
+            int result = playTimeLine();
+            if (result == -1) {
+                resetTimeline();
             }
         }
         reset();
+    }
+
+    public void waitt() {
+        int t = 1;
+        for (int i = 0; i < 1000000000; i++)
+            for (int j = 0; j < 1000000000; j++)
+                t *= 1;
+    }
+
+    private int playTimeLine() {
+        for (int i = 0; i < 21; i++) {
+            timeLines[0][i] = GraphicController.getTimelinesCard()[0][i];
+            timeLines[1][i] = GraphicController.getTimelinesCard()[1][i];
+        }
+        for (int i = 0; i < 21; i++) {
+            checkDamage(i);
+            if (cardAD1 > cardAD2) GraphicController.getLives()[1] -= cardDamage1;
+            else if (cardAD1 < cardAD2) GraphicController.getLives()[0] -= cardDamage2;
+            DamageP2.setText(Integer.toString(GraphicController.getPlayersDamage()[1]));
+            DamageP1.setText(Integer.toString(GraphicController.getPlayersDamage()[0]));
+            player1live.setText(Integer.toString(GraphicController.getLives()[0]));
+            player2live.setText(Integer.toString(GraphicController.getLives()[1]));
+            waitt();
+            System.out.println(i);
+            System.out.println(cardDamage1);
+            System.out.println(cardDamage2);
+            if (GraphicController.getLives()[0] <= 0 && GraphicController.getLives()[1] <= 0) return 2;
+            if (GraphicController.getLives()[0] <= 0 && GraphicController.getLives()[1] > 0) return 1;
+            if (GraphicController.getLives()[0] > 0 && GraphicController.getLives()[1] <= 0) return 0;
+        }
+        return -1;
+    }
+
+    private void checkDamage(int i) {
+        if (timeLines[0][i].getCardName().equals("null"))
+            cardType1 = -1;
+        else if (!timeLines[0][i].getCardName().equals("null") && timeLines[0][i].getClass().equals(NormalCard.class))
+            cardType1 = 0;
+        else
+            cardType1 = 1;
+
+        if (timeLines[1][i].getCardName().equals("null"))
+            cardType2 = -1;
+        else if (!timeLines[1][i].getCardName().equals("null") && timeLines[1][i].getClass().equals(NormalCard.class))
+            cardType2 = 0;
+        else
+            cardType2 = 1;
+
+        cardDamage1 = cardDamage2 = 0;
+
+        if (cardType1 == 0) {cardAD1 = ((NormalCard) timeLines[0][i]).getCardAttack_Deffence(); cardDamage1 = ((NormalCard) timeLines[0][i]).getPlayerDamage();}
+        if (cardType2 == 0) {cardAD2 = ((NormalCard) timeLines[1][i]).getCardAttack_Deffence(); cardDamage2 = ((NormalCard) timeLines[1][i]).getPlayerDamage();}
+
+        if (cardType1 == 1 || cardType1 == -1) cardAD1 = 0;
+        if (cardType2 == 1 || cardType2 == -1) cardAD2 = 0;
+
+        handleSpecial(i);
+    }
+
+    private void handleSpecial(int i) {
+        if (timeLines[0][i].getCardName().equals("shield"))
+            cardAD2 = 0;
+        if (timeLines[1][i].getCardName().equals("shield"))
+            cardAD1 = 0;
+
+        if (timeLines[0][i].getCardName().equals("heal"))
+            GraphicController.getLives()[0] += 50;
+        if (timeLines[1][i].getCardName().equals("heal"))
+            GraphicController.getLives()[1] += 50;
+    }
+
+    private void resetTimeline() {
+        Random random = new Random();
+        int f = Math.abs(random.nextInt()) % 21, s = Math.abs(random.nextInt()) % 21;
+        for (int i = 0; i < 21; i++) {
+            timeLines[0][i] = new Card();
+            timeLines[1][i] = new Card();
+            if (i == f) {
+                timeLines[0][i].setCardName("null");
+                timeLines[0][i].setImageLink("/CardImage/null.png");
+            }
+            if (i == s) {
+                timeLines[1][i].setCardName("null");
+                timeLines[0][i].setImageLink("/CardImage/null.png");
+            }
+            GraphicController.getTimelinesCard()[1][i] = timeLines[0][i];
+            GraphicController.getTimelinesCard()[0][i] = timeLines[1][i];
+            GraphicController.getTimlines()[1][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[1][i].getImageLink()).toExternalForm())));
+            GraphicController.getTimlines()[0][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[0][i].getImageLink()).toExternalForm())));
+            int []it = {0, 0};
+            GraphicController.setPlayersDamage(it);
+        }
+        GraphicController.getPlayersRound()[0] = GraphicController.getPlayersRound()[1] = 4;
     }
 
     private void showCardProperty(int cardIndexToShow, int playerIndexToShowCard) {

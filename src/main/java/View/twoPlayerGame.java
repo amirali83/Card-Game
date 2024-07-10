@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 
 public class twoPlayerGame {
@@ -178,6 +179,7 @@ public class twoPlayerGame {
         }
         else
             handleSpecial((EspecialCard) playersdeck[inCharge][cardIndex]);
+        GraphicController.setTimelines(timeLines);
 
         playersRound[inCharge]--;
         GraphicController.getPlayersRound()[inCharge]--;
@@ -210,27 +212,31 @@ public class twoPlayerGame {
             if (playersRound[gameStarter] == 0) {
                 System.out.println("in timeline");
                 inTimeLine = true;
-                boolean fin = playTimeLine();
-                GraphicController.setLives(live);
-                if (fin) {
-                    drawGrphic();
-                    if (live[0] > 0) {
-                        System.out.println("user1 won");
-                        getTrophy(users[0], users[1]);
-                        GraphicController.setWinner(users[0].getUsername());
-                        return Outputs.PLAYER1_WON;
-                    } else if (live[1] > 0) {
-                        System.out.println("user2 won");
-                        getTrophy(users[1], users[0]);
-                        GraphicController.setWinner(users[1].getUsername());
-                        return Outputs.PLAYER2_WON;
-                    } else {
-                        System.out.println("draw");
-                        return Outputs.DRAW;
-                    }
-                }
-                inTimeLine = false;
-                resetTimeline();
+                return Outputs.IN_TIME_LINE;
+//                boolean fin = playTimeLine();
+//                GraphicController.setLives(live);
+//                if (fin) {
+//                    drawGrphic();
+//                    if (live[0] > 0) {
+//                        System.out.println("user1 won");
+//                        getTrophy(users[0], users[1]);
+//                        GraphicController.setWinner(users[0].getUsername());
+//                        return Outputs.PLAYER1_WON;
+//                    } else if (live[1] > 0) {
+//                        System.out.println("user2 won");
+//                        getTrophy(users[1], users[0]);
+//                        GraphicController.setWinner(users[1].getUsername());
+//                        return Outputs.PLAYER2_WON;
+//                    } else {
+//                        System.out.println("draw");
+//                        return Outputs.DRAW;
+//                    }
+//                }
+//                inTimeLine = false;
+//                resetTimeline();
+//                if (!fin) {
+//
+//                }
             }
         }
 
@@ -243,59 +249,6 @@ public class twoPlayerGame {
             GraphicController.setInCharge(inCharge);
         }
         return Outputs.PASSWORD_NOT_STRONG_ENOUGH;
-    }
-
-    private static void resetTimeline() {
-        Random random = new Random();
-        int f = Math.abs(random.nextInt()) % 21, s = Math.abs(random.nextInt()) % 21;
-        for (int i = 0; i < 21; i++) {
-            timeLines[0][i] = new Card();
-            timeLines[1][i] = new Card();
-            if (i == f) {
-                timeLines[0][i].setCardName("null");
-                timeLines[0][i].setImageLink("/CardImage/null.png");
-            }
-            if (i == s) {
-                timeLines[1][i].setCardName("null");
-                timeLines[0][i].setImageLink("/CardImage/null.png");
-            }
-            GraphicController.getTimelinesCard()[1][i] = timeLines[0][i];
-            GraphicController.getTimelinesCard()[0][i] = timeLines[1][i];
-            GraphicController.getTimlines()[1][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[1][i].getImageLink()).toExternalForm())));
-            GraphicController.getTimlines()[0][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[0][i].getImageLink()).toExternalForm())));
-        }
-        playersRound[0] = playersRound[1] = 4;
-        GraphicController.getPlayersRound()[0] = GraphicController.getPlayersRound()[1] = 4;
-    }
-
-    private static void getTrophy(User user1, User user2) {
-        user1.setXP(user1.getXP() + 100);
-        user2.setXP(user2.getXP() + 100);
-        user1.setCoins(user1.getCoins() + 50);
-    }
-
-    private static boolean playTimeLine() {
-        for (int i = 0; i < 21; i++) {
-            checkDamage(i);
-            if (cardAD1 > cardAD2) live[1] -= cardDamage1;
-            else if (cardAD1 < cardAD2) live[0] -= cardDamage2;
-            if (live[0] <= 0 || live[1] <= 0) return true;
-        }
-        return false;
-    }
-
-    private static void replaceUsedCard(int cardIndex) {
-        Random r = new Random();
-        int notInCharge;
-        if (inCharge == 0) notInCharge = 1;
-        else notInCharge = 0;
-        try {
-            playersdeck[inCharge][cardIndex] = (Card) users[inCharge].getCards().get(Math.abs(r.nextInt()) % users[inCharge].getCards().size()).clone();
-            GraphicController.getPlayersDeck()[inCharge][cardIndex].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
-            GraphicController.getPlayersDeckCard()[inCharge][cardIndex] = playersdeck[inCharge][cardIndex];
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void checkDamage(int i) {
@@ -329,12 +282,27 @@ public class twoPlayerGame {
             cardAD2 = 0;
         if (timeLines[1][i].getCardName().equals("shield"))
             cardAD1 = 0;
+    }
 
-        if (!inTimeLine) {
-            if (timeLines[0][i].getCardName().equals("heal"))
-                live[0] += 50;
-            if (timeLines[1][i].getCardName().equals("heal"))
-                live[1] += 50;
+
+
+    private static void getTrophy(User user1, User user2) {
+        user1.setXP(user1.getXP() + 100);
+        user2.setXP(user2.getXP() + 100);
+        user1.setCoins(user1.getCoins() + 50);
+    }
+
+    private static void replaceUsedCard(int cardIndex) {
+        Random r = new Random();
+        int notInCharge;
+        if (inCharge == 0) notInCharge = 1;
+        else notInCharge = 0;
+        try {
+            playersdeck[inCharge][cardIndex] = (Card) users[inCharge].getCards().get(Math.abs(r.nextInt()) % users[inCharge].getCards().size()).clone();
+            GraphicController.getPlayersDeck()[inCharge][cardIndex].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
+            GraphicController.getPlayersDeckCard()[inCharge][cardIndex] = playersdeck[inCharge][cardIndex];
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
     }
 
