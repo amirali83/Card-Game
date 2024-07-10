@@ -4,6 +4,7 @@ module ProjectPhase1 {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires jdk.compiler;
 
     exports Controller;
     exports Module;

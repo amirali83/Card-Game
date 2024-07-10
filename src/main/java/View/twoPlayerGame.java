@@ -151,7 +151,7 @@ public class twoPlayerGame {
             }
             for (int i = 0; i < playersdeck[inCharge][cardIndex].getDuration(); i++) {
                 timeLines[inCharge][timelineIndex + i] = playersdeck[inCharge][cardIndex];
-                GraphicController.getTimlines()[notInCharge][timelineIndex + 1 + i].setFill(Color.ORANGE);
+                GraphicController.getTimlines()[notInCharge][timelineIndex + 1 + i].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
             }
         }
         else
@@ -259,8 +259,12 @@ public class twoPlayerGame {
 
     private static void replaceUsedCard(int cardIndex) {
         Random r = new Random();
+        int notInCharge;
+        if (inCharge == 0) notInCharge = 1;
+        else notInCharge = 0;
         try {
             playersdeck[inCharge][cardIndex] = (Card) users[inCharge].getCards().get(Math.abs(r.nextInt()) % users[inCharge].getCards().size()).clone();
+            GraphicController.getPlayersDeck()[notInCharge][cardIndex].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -360,7 +364,7 @@ public class twoPlayerGame {
             }
             playersdeck[notInCharge][in] = temp;
             try {
-                playersdeck[inCharge][6] = (Card) playersdeck[notInCharge][4].clone();
+                playersdeck[inCharge][5] = (Card) playersdeck[notInCharge][4].clone();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }

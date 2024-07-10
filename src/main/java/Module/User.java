@@ -78,6 +78,7 @@ public class User {
     public void setCoins(int coins) {this.coins = coins;}
     public void setHP(int hp) {this.HP = hp;}
     public void setXP(int xp) {this.XP = xp;}
+    public void setLevel(int level) {this.level = level;}
 
     public boolean hasCard(Card card) {
         if (cards.contains(card)) return true;
