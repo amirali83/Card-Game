@@ -52,6 +52,12 @@ public class mainController {
     }
 
     public void Setting(MouseEvent mouseEvent) {
+        settingMenuGraphic menu = new settingMenuGraphic();
+        try {
+            menu.start(GraphicController.getStage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void Logout(MouseEvent mouseEvent) {
@@ -65,10 +71,10 @@ public class mainController {
     }
 
     public void update(MouseEvent mouseEvent) {
-        HP.setText(Integer.toString(user.getHP()));
-        XP.setText(Integer.toString(user.getXP()));
-        Coins.setText(Integer.toString(user.getCoins()));
-        Level.setText(Integer.toString(user.getLevel()));
+        HP.setText("HP: " + Integer.toString(user.getHP()));
+        XP.setText("XP: " + Integer.toString(user.getXP()));
+        Coins.setText("Coins: " + Integer.toString(user.getCoins()));
+        Level.setText("Level: " + Integer.toString(user.getLevel()));
         if (user.getXP() >= user.getLevel() * 1000) {
             user.setXP(user.getXP() - user.getLevel() * 1000);
             user.setLevel(user.getLevel() + 1);

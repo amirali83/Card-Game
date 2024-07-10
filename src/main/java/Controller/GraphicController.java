@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import Module.*;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class GraphicController {
     private static String winner;
     private static int gameType;
     private static int bet;
+    private static Media media;
+    private static MediaPlayer mediaPlayer;
 
     public static void setStage(Stage stage) {GraphicController.stage = stage;}
     public static void setScene(Scene scene) {GraphicController.scene = scene;}
@@ -48,6 +52,8 @@ public class GraphicController {
     public static void setWinner(String winner) {GraphicController.winner = winner;}
     public static void setGameType(int gameType) {GraphicController.gameType = gameType;}
     public static void setBet(int bet) {GraphicController.bet = bet;}
+    public static void setMedia(Media media) {GraphicController.media = media;}
+    public static void setMediaPlayer(MediaPlayer mediaPlayer) {GraphicController.mediaPlayer = mediaPlayer;}
 
     public static Stage getStage() {return stage;}
     public static Scene getScene() {return scene;}
@@ -68,4 +74,6 @@ public class GraphicController {
     public static String getWinner() {return winner;}
     public static int getGameType() {return gameType;}
     public static int getBet() {return bet;}
+    public static Media getMedia() {return media;}
+    public static MediaPlayer getMediaPlayer() {return mediaPlayer;}
 }
