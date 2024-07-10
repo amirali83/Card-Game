@@ -1,8 +1,8 @@
 package Controller;
 
 import View.mainMenuGraphic;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
@@ -84,22 +84,57 @@ public class shopController {
         }
         int cardIndex = (pagenum - 1 ) * 6 + cardSelected - 1;
         Card temp = GraphicController.getAllCards().get(cardIndex);
-        if (temp.getCardValue() > GraphicController.getUser().getCoins()) {
-            alert.setHeaderText("You don't have enough money");
-            alert.showAndWait();
-            return;
-        }
-        if (checkUserhave(temp) && temp.getClass().equals(NormalCard.class)) {
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Are you sure you want to upgrade this card?");
-            alert.setContentText("String.format()");
-            alert.showAndWait();
-        } else if (checkUserhave(temp) && temp.getClass().equals(EspecialCard.class)) {
+        if (temp.getClass().equals(EspecialCard.class)) {
             alert.setHeaderText("Error");
             alert.setContentText("This card can not be upgraded");
             alert.showAndWait();
         }
+        if (checkUserhave(temp)) {
+            if (GraphicController.getUser().getCoins() < temp.getCardValue()) {
+                alert.setHeaderText("Error");
+                alert.setHeaderText("You don't have enough money");
+                alert.showAndWait();
+                return;
+            }
+            ButtonType ok = new ButtonType("OK");
+            ButtonType cancel = new ButtonType("Cancel");
+            alert = new Alert(Alert.AlertType.NONE, "", ok, cancel);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Are you sure you want to upgrade this card?");
+            alert.setContentText(String.format("Card A/D = %d -> %d\nCard Damage = %d -> %d\n", ((NormalCard) temp).getCardAttack_Deffence(), (int) (((NormalCard) temp).getCardAttack_Deffence() * 1.15), ((NormalCard) temp).getPlayerDamage(), (int) (((NormalCard) temp).getCardAttack_Deffence() * 1.2)));
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ok) {
+                    cardUpgrade((NormalCard) temp);
+                }
+            });
+        } else {
+            if (GraphicController.getUser().getCoins() < ((NormalCard) temp).getUpgradeCost()) {
+                alert.setHeaderText("Error");
+                alert.setContentText("You don't have enough money");
+                alert.showAndWait();
+                return;
+            }
+            ButtonType ok = new ButtonType("OK");
+            ButtonType cancel = new ButtonType("Cancel");
+            alert = new Alert(Alert.AlertType.NONE, "", ok, cancel);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Are you sure you want to buy this card?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ok) {
+                    buyCard(temp);
+                }
+            });
+        }
+        update();
+    }
+
+    private void buyCard(Card temp) {
+        GraphicController.getUser().getCards().add(temp);
+    }
+
+    public void cardUpgrade(NormalCard temp) {
+        temp.setCardAttack_Deffence((int) (temp.getCardAttack_Deffence() * 1.15));
+        temp.setPlayerDamage((int) (temp.getPlayerDamage() * 1.2));
     }
 
     public boolean checkUserhave(Card card1) {
@@ -113,7 +148,7 @@ public class shopController {
         if (card.getClass().equals(EspecialCard.class))
             command = String.format("Card name = %s\nCard explanation = \n%s\nCard Value = %d", card.getCardName(), ((EspecialCard) card).getCardExplanation(), card.getCardValue());
         if (card.getClass().equals(NormalCard.class))
-            command = String.format("Card name = %s\nCard A/D = %d\nCard Damage = %d\nCard Duration = %d\nCard Value = %d", card.getCardName(), ((NormalCard) card).getCardAttack_Deffence(), ((NormalCard) card).getPlayerDamage(), card.getDuration(), card.getCardValue());
+            command = String.format("Card name = %s\nCard A/D = %d\nCard Damage = %d\nCard Value = %d\nCard Upgrade Cost = %d\nCard Upgrade Level = %d", card.getCardName(), ((NormalCard) card).getCardAttack_Deffence(), ((NormalCard) card).getPlayerDamage(), card.getCardValue(), ((NormalCard) card).getUpgradeCost(), ((NormalCard) card).getUpgradeLevel());
         return command;
     }
 
