@@ -19,6 +19,7 @@ public class ProfileMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Profile Menu");
 
         GraphicController.setStage(stage);

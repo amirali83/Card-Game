@@ -19,6 +19,7 @@ public class forgotPasswordGraphicMenu extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Forgot Password Menu");
 
         GraphicController.setStage(stage);

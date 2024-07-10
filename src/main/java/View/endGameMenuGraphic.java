@@ -15,10 +15,11 @@ public class endGameMenuGraphic extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/forgotPasswordMenu.fxml"));
+        Pane pane = fxmlLoader.load(getClass().getResource("/FXML/endGameMenu.fxml"));
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("End Menu");
 
         GraphicController.setStage(stage);

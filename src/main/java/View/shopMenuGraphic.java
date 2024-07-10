@@ -19,6 +19,7 @@ public class shopMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Shop Menu");
 
         GraphicController.setStage(stage);

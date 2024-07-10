@@ -28,11 +28,16 @@
             <PasswordField fx:id="confirmPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="172.0" promptText="confirm password" GridPane.rowIndex="3" />
             <TextField fx:id="nickname" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="172.0" promptText="nickname" GridPane.rowIndex="4" />
             <TextField fx:id="email" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="172.0" promptText="email" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onMouseClicked="#signup" text="sign up" GridPane.rowIndex="6" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="2">
                <children>
                   <TextField fx:id="passwordr" alignment="CENTER" promptText="password" />
                   <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#generateRandom" prefHeight="26.0" prefWidth="61.0" text="Random" textAlignment="CENTER" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="6">
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#back" text="back" />
+                  <Button mnemonicParsing="false" onMouseClicked="#signup" text="sign up" />
                </children>
             </HBox>
             </children>

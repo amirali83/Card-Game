@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import View.*;
 import Module.*;
+import javafx.scene.text.Text;
 
 public class playMenuController {
     public Rectangle timeline00, timeline01, timeline02, timeline03, timeline04, timeline05, timeline06, timeline07, timeline08, timeline09, timeline010, timeline011, timeline012, timeline013, timeline014, timeline015, timeline016, timeline017, timeline018, timeline019, timeline020, timeline021, timeline022, timeline023;
@@ -26,11 +27,14 @@ public class playMenuController {
     public Label player1live;
     public Label player2live;
     public Label player2name;
+    public Text ShowCardInformation;
 
     boolean bringup = false;
 
     int chosedPlayerCardIndex = -1;
     int chosedTimeLineIndex = -1;
+    int cardIndexToShow;
+    int playerIndexToShowCard;
 
     public void bringUp(MouseEvent mouseEvent) {
         if (!bringup) {
@@ -39,7 +43,7 @@ public class playMenuController {
             playersdeck[0][0] = player10; playersdeck[0][1] = player11; playersdeck[0][2] = player12; playersdeck[0][3] = player13; playersdeck[0][4] = player14; playersdeck[0][5] = player15;
             playersdeck[1][0] = player20; playersdeck[1][1] = player21; playersdeck[1][2] = player22; playersdeck[1][3] = player23; playersdeck[1][4] = player24; playersdeck[1][5] = player25;
             bringup = true;
-            GraphicController.setTimlines(timelines);
+            GraphicController.setTimelines(timelines);
             GraphicController.setPlayersDeck(playersdeck);
             timelines[0][0].setVisible(false);
             timelines[1][0].setVisible(false);
@@ -75,6 +79,8 @@ public class playMenuController {
         roundLeftP1.setText(Integer.toString(GraphicController.getPlayersRound()[0]));
         DamageP2.setText(Integer.toString(GraphicController.getPlayersDamage()[1]));
         DamageP1.setText(Integer.toString(GraphicController.getPlayersDamage()[0]));
+        player1live.setText(Integer.toString(GraphicController.getLives()[0]));
+        player2live.setText(Integer.toString(GraphicController.getLives()[1]));
         if (GraphicController.getInCharge() == 0) {roundLeftP1.setTextFill(Color.RED); roundLeftP2.setTextFill(Color.BLACK);}
         if (GraphicController.getInCharge() == 1) {roundLeftP2.setTextFill(Color.RED); roundLeftP1.setTextFill(Color.BLACK);}
         player1live.setText(Integer.toString(GraphicController.getLives()[0]));
@@ -122,7 +128,7 @@ public class playMenuController {
         return -1;
     }
 
-    private void placeCard() {
+    private void placeCard(){
         String command = String.format("-Placing card number %s in block %s", chosedPlayerCardIndex + 1, chosedTimeLineIndex + 1);
         Outputs out = twoPlayerGame.startGame(command);
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -131,13 +137,27 @@ public class playMenuController {
             alert.setHeaderText("Can't place card here");
             alert.showAndWait();
         }
-        else if (out.equals(Outputs.PLAYER1_WON)) {
-
-        }
-        else if (out.equals(Outputs.PLAYER2_WON)) {
-
+        else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON)) {
+            endGameMenuGraphic menu = new endGameMenuGraphic();
+            try {
+                menu.start(GraphicController.getStage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         reset();
+    }
+
+    private void showCardProperty(int cardIndexToShow, int playerIndexToShowCard) {
+        if (GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow] == null)
+            return;
+        String command = "empty";
+        if (GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow].getClass().equals(EspecialCard.class))
+            command = String.format("Card name: %s\nExplanation: %s", ((EspecialCard) GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow]).getCardName(), ((EspecialCard) GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow]).getCardExplanation());
+        else if (GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow].getClass().equals(NormalCard.class))
+            command = String.format("Card name: %s\nCard A/D: %d\nCard Damage: %d", ((NormalCard) GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow]).getCardName(), ((NormalCard) GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow]).getCardAttack_Deffence(), ((NormalCard) GraphicController.getPlayersDeckCard()[playerIndexToShowCard][cardIndexToShow]).getPlayerDamage());
+        ShowCardInformation.setWrappingWidth(150);
+        ShowCardInformation.setText(command);
     }
 
     public void choseCardToPlay10(MouseEvent mouseEvent) {
@@ -522,5 +542,77 @@ public class playMenuController {
     }
 
     public void placeCardin123(MouseEvent mouseEvent) {
+    }
+
+    public void showCard10Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 0;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard11Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 1;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard12Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 2;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard13Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 3;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard14Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 4;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard15Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 5;
+        playerIndexToShowCard = 0;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard20Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 0;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard21Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 1;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard22Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 2;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard23Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 3;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard24Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 4;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
+    }
+
+    public void showCard25Property(MouseEvent mouseEvent) {
+        cardIndexToShow = 5;
+        playerIndexToShowCard = 1;
+        showCardProperty(cardIndexToShow, playerIndexToShowCard);
     }
 }

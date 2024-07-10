@@ -8,6 +8,7 @@ public class Card {
 
     public Card() {
         this.cardName = "empty";
+        this.imageLink = "/CardImage/empty.png";
     }
 
     public Card(String cardName, int cardValue, int duration, String imageLink) {

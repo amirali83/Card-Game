@@ -16,6 +16,7 @@ public class LevelUpMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("level up");
 
         GraphicController.setStage(stage);

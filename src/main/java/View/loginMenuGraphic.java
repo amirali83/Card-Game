@@ -23,6 +23,7 @@ public class loginMenuGraphic extends Application{
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Login Menu");
 
         GraphicController.setStage(stage);

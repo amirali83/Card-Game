@@ -19,6 +19,7 @@ public class signupMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Signup Menu");
 
         GraphicController.setStage(stage);

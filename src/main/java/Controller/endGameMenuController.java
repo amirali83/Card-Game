@@ -10,7 +10,7 @@ public class endGameMenuController {
 
     public void bringUp(MouseEvent mouseEvent) {
         if (!bringUp) {
-            winner.setText(String.format("player %s + won", GraphicController.getWinner()));
+            winner.setText(String.format("%s won", GraphicController.getWinner()));
             bringUp = true;
         }
     }

@@ -19,6 +19,7 @@ public class mainMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Main Menu");
 
         GraphicController.setStage(stage);

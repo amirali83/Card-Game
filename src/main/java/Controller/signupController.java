@@ -88,4 +88,12 @@ public class signupController {
         passwordr.setText(r);
     }
 
+    public void back(MouseEvent mouseEvent) {
+        loginMenuGraphic menu = new loginMenuGraphic();
+        try {
+            menu.start(GraphicController.getStage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

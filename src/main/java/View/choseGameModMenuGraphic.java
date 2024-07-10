@@ -19,6 +19,7 @@ public class choseGameModMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Choose Mode");
 
         GraphicController.setStage(stage);

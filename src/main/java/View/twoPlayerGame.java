@@ -58,6 +58,13 @@ public class twoPlayerGame {
 //            return -1;
 //        }
 
+        for (int i = 0; i < 21; i++) {
+            timeLines[0][i] = new Card();
+            timeLines[1][i] = new Card();
+        }
+
+        GraphicController.setTimelines(timeLines);
+
         Random random = new Random();
         int f = Math.abs(random.nextInt()) % 21, s = Math.abs(random.nextInt()) % 21;
         for (int i = 0; i < 21; i++) {
@@ -65,13 +72,20 @@ public class twoPlayerGame {
             timeLines[1][i] = new Card();
             if (i == f) {
                 timeLines[0][i].setCardName("null");
-                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
+                timeLines[0][i].setImageLink("/CardImage/null.png");
+                //GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
             }
             if (i == s) {
                 timeLines[1][i].setCardName("null");
-                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
+                timeLines[1][i].setImageLink("/CardImage/null.png");
+                //GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
             }
+            GraphicController.getTimelinesCard()[1][i] = timeLines[0][i];
+            GraphicController.getTimelinesCard()[0][i] = timeLines[1][i];
+            GraphicController.getTimlines()[1][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[1][i].getImageLink()).toExternalForm())));
+            GraphicController.getTimlines()[0][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[0][i].getImageLink()).toExternalForm())));
         }
+        GraphicController.setTimelines(timeLines);
         for (int i = 0; i < 5; i++) {
             f = Math.abs(random.nextInt()) % user1.getCards().size();
             s = Math.abs(random.nextInt()) % user2.getCards().size();
@@ -89,10 +103,18 @@ public class twoPlayerGame {
                 e.printStackTrace();
             }
         }
+
+        System.out.println("###################################################");
+        System.out.println(playersdeck[0][3].getClass());
+        System.out.println("###################################################");
+        System.out.println(playersdeck[1][3].getClass());
+        System.out.println("###################################################");
+
         playersdeck[0][5] = new Card();
         playersdeck[1][5] = new Card();
-        GraphicController.getPlayersDeck()[0][5].setFill(Color.BLACK);
-        GraphicController.getPlayersDeck()[1][5].setFill(Color.BLACK);
+        GraphicController.setPlayersDeck(playersdeck);
+        GraphicController.getPlayersDeck()[0][5].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[0][5].getImageLink()).toExternalForm())));
+        GraphicController.getPlayersDeck()[1][5].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[1][5].getImageLink()).toExternalForm())));
         playersDamage[0] = playersDamage[1] = 0;
         GraphicController.setPlayersDamage(playersDamage);
         playersRound[0] = playersRound[1] = 4;
@@ -192,13 +214,15 @@ public class twoPlayerGame {
                 GraphicController.setLives(live);
                 if (fin) {
                     drawGrphic();
-                    if (live[0] > live[1]) {
+                    if (live[0] > 0 && live[1] < 0) {
                         System.out.println("user1 won");
                         getTrophy(users[0], users[1]);
+                        GraphicController.setWinner(users[0].getUsername());
                         return Outputs.PLAYER1_WON;
-                    } else if (live[0] < live[1]) {
+                    } else if (live[1] > 0 && live[0] < 0) {
                         System.out.println("user2 won");
                         getTrophy(users[1], users[0]);
+                        GraphicController.setWinner(users[1].getUsername());
                         return Outputs.PLAYER2_WON;
                     } else {
                         System.out.println("draw");
@@ -228,13 +252,14 @@ public class twoPlayerGame {
             timeLines[0][i] = new Card();
             timeLines[1][i] = new Card();
             GraphicController.getTimlines()[0][i + 1].setFill(Color.BLUE);
+            GraphicController.getTimlines()[1][i + 1].setFill(Color.BLUE);
             if (i == f) {
                 timeLines[0][i].setCardName("null");
-                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
+                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
             }
             if (i == s) {
                 timeLines[1][i].setCardName("null");
-                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
+                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
             }
         }
         playersRound[0] = playersRound[1] = 4;
@@ -264,7 +289,8 @@ public class twoPlayerGame {
         else notInCharge = 0;
         try {
             playersdeck[inCharge][cardIndex] = (Card) users[inCharge].getCards().get(Math.abs(r.nextInt()) % users[inCharge].getCards().size()).clone();
-            GraphicController.getPlayersDeck()[notInCharge][cardIndex].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
+            GraphicController.getPlayersDeck()[inCharge][cardIndex].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][cardIndex].getImageLink()).toExternalForm())));
+            GraphicController.getPlayersDeckCard()[inCharge][cardIndex] = playersdeck[inCharge][cardIndex];
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -365,10 +391,14 @@ public class twoPlayerGame {
             playersdeck[notInCharge][in] = temp;
             try {
                 playersdeck[inCharge][5] = (Card) playersdeck[notInCharge][4].clone();
+                GraphicController.getPlayersDeckCard()[inCharge][5] = playersdeck[inCharge][5];
+                GraphicController.getPlayersDeck()[inCharge][5].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getPlayersDeckCard()[inCharge][5].getImageLink()).toExternalForm())));
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
             playersdeck[notInCharge][4] = new Card();
+            GraphicController.getPlayersDeckCard()[notInCharge][4] = playersdeck[notInCharge][4];
+            GraphicController.getPlayersDeck()[notInCharge][4].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getPlayersDeckCard()[notInCharge][4].getImageLink()).toExternalForm())));
             usedEspecial[inCharge].add(1);
         }
 
@@ -433,6 +463,18 @@ public class twoPlayerGame {
             if (timeLines[i][in].getCardName().equals("empty")) {
                 timeLines[i][in].setCardName("null");
                 timeLines[i][f].setCardName("empty");
+                if (i == 0) {
+                    GraphicController.getTimlines()[1][in].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][in].getImageLink()).toExternalForm())));
+                    GraphicController.getTimlines()[1][f].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][f].getImageLink()).toExternalForm())));
+                    GraphicController.getTimelinesCard()[1][in] = timeLines[i][in];
+                    GraphicController.getTimelinesCard()[1][f] = timeLines[i][f];
+                }
+                else {
+                    GraphicController.getTimlines()[1][in].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][in].getImageLink()).toExternalForm())));
+                    GraphicController.getTimlines()[1][f].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][f].getImageLink()).toExternalForm())));
+                    GraphicController.getTimelinesCard()[0][in] = timeLines[i][in];
+                    GraphicController.getTimelinesCard()[0][f] = timeLines[i][f];
+                }
                 break;
             }
         }

@@ -20,6 +20,7 @@ public class securityQuestionMenuGraphic extends Application {
         ModuleLayer.Controller controller = fxmlLoader.getController();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.setTitle("Security Question Menu");
 
         GraphicController.setStage(stage);

@@ -8,17 +8,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import Module.*;
 import View.*;
+import javafx.scene.text.Text;
 
 public class loginController {
     public TextField username;
     public PasswordField password;
+    public Text countdown;
+    String command = "";
+    public boolean run = false;
 
     public void login(MouseEvent mouseEvent) {
-        String command = String.format("user login -u %s -p %s", username.getText(), password.getText());
+        command = String.format("user login -u %s -p %s", username.getText(), password.getText());
         System.out.println(command);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        Outputs out =AppController.run(command);
+        Outputs out = AppController.run(command);
+        run = true;
         if (out.equals(Outputs.WRONG_PASSWORD)) {
             alert.setHeaderText("Wrong Password");
             alert.showAndWait();
@@ -105,6 +110,21 @@ public class loginController {
                 menu.start(GraphicController.getStage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void update(MouseEvent mouseEvent) {
+        if (run) {
+            Outputs out = AppController.run(command);
+            System.out.println("121212");
+            if (!AppController.getTimeLeftToLogInAgain().equals("Try again in 1 seconds")) {
+                countdown.setText(AppController.getTimeLeftToLogInAgain());
+                //command = "";
+            }
+            else {
+                countdown.setText("");
+                run = false;
             }
         }
     }
