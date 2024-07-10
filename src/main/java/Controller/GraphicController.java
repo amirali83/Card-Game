@@ -26,6 +26,8 @@ public class GraphicController {
     private static int []playersDamage = new int[2];
     private static int []playersRound = new int[2];
     private static String winner;
+    private static int gameType;
+    private static int bet;
 
     public static void setStage(Stage stage) {GraphicController.stage = stage;}
     public static void setScene(Scene scene) {GraphicController.scene = scene;}
@@ -44,6 +46,8 @@ public class GraphicController {
     public static void setPlayersDamage(int[] playersDamage) {GraphicController.playersDamage[0] = playersDamage[0]; GraphicController.playersDamage[1] = playersDamage[1];}
     public static void setPlayersRound(int[] playersRound) {GraphicController.playersRound[0] = playersRound[0]; GraphicController.playersRound[1] = playersRound[1];}
     public static void setWinner(String winner) {GraphicController.winner = winner;}
+    public static void setGameType(int gameType) {GraphicController.gameType = gameType;}
+    public static void setBet(int bet) {GraphicController.bet = bet;}
 
     public static Stage getStage() {return stage;}
     public static Scene getScene() {return scene;}
@@ -62,4 +66,6 @@ public class GraphicController {
     public static int[] getPlayersDamage() {return playersDamage;}
     public static int[] getPlayersRound() {return playersRound;}
     public static String getWinner() {return winner;}
+    public static int getGameType() {return gameType;}
+    public static int getBet() {return bet;}
 }

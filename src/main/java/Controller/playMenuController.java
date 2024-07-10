@@ -11,6 +11,9 @@ import View.*;
 import Module.*;
 import javafx.scene.text.Text;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class playMenuController {
     public Rectangle timeline00, timeline01, timeline02, timeline03, timeline04, timeline05, timeline06, timeline07, timeline08, timeline09, timeline010, timeline011, timeline012, timeline013, timeline014, timeline015, timeline016, timeline017, timeline018, timeline019, timeline020, timeline021, timeline022, timeline023;
     public Rectangle timeline10, timeline11, timeline12, timeline13, timeline14, timeline15, timeline16, timeline17, timeline18, timeline19, timeline110, timeline111, timeline112, timeline113, timeline114, timeline115, timeline116, timeline117, timeline118, timeline119, timeline120, timeline121, timeline122, timeline123;
@@ -138,6 +141,24 @@ public class playMenuController {
             alert.showAndWait();
         }
         else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON)) {
+            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            String time = localDate.getYear() + "%" + localDate.getMonthValue() + "%" + localDate.getDayOfMonth() + "%"
+                    + localTime.getHour() + "%" + localTime.getMinute() + "%" + localTime.getSecond();
+            if (out.equals(Outputs.PLAYER1_WON)) {
+                GraphicController.getUser().getGameHistory().add(time + ":1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+                GraphicController.getOpponent().getGameHistory().add(time + ":0:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+            } else if (out.equals(Outputs.PLAYER2_WON)) {
+                GraphicController.getUser().getGameHistory().add(time + ":0:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+                GraphicController.getOpponent().getGameHistory().add(time + ":1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+            } else {
+                GraphicController.getUser().getGameHistory().add(time + ":-1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
+                GraphicController.getOpponent().getGameHistory().add(time + ":-1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
+            }
+            AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
+            AppData.saveDataOtherThanUsername(GraphicController.getUser());
+            GraphicController.setOpponent(null);
             endGameMenuGraphic menu = new endGameMenuGraphic();
             try {
                 menu.start(GraphicController.getStage());

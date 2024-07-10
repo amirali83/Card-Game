@@ -194,7 +194,7 @@ public class twoPlayerGame {
                     cardDamage2 += (int) (cardDamage2 *= 0.3);
 
             if (cardAD1 > cardAD2) playersDamage[0] += cardDamage1;
-            else if (cardAD1 < cardAD2) playersDamage[1] += cardDamage2;
+            if (cardAD1 < cardAD2) playersDamage[1] += cardDamage2;
         }
         GraphicController.getPlayersDamage()[0] = playersDamage[0];
         GraphicController.getPlayersDamage()[1] = playersDamage[1];
@@ -214,20 +214,20 @@ public class twoPlayerGame {
                 GraphicController.setLives(live);
                 if (fin) {
                     drawGrphic();
-                    if (live[0] > 0 && live[1] < 0) {
+                    if (live[0] > 0) {
                         System.out.println("user1 won");
                         getTrophy(users[0], users[1]);
                         GraphicController.setWinner(users[0].getUsername());
                         return Outputs.PLAYER1_WON;
-                    } else if (live[1] > 0 && live[0] < 0) {
+                    } else if (live[1] > 0) {
                         System.out.println("user2 won");
                         getTrophy(users[1], users[0]);
                         GraphicController.setWinner(users[1].getUsername());
                         return Outputs.PLAYER2_WON;
                     } else {
                         System.out.println("draw");
+                        return Outputs.DRAW;
                     }
-                    gameFinished = true;
                 }
                 inTimeLine = false;
                 resetTimeline();
@@ -251,16 +251,18 @@ public class twoPlayerGame {
         for (int i = 0; i < 21; i++) {
             timeLines[0][i] = new Card();
             timeLines[1][i] = new Card();
-            GraphicController.getTimlines()[0][i + 1].setFill(Color.BLUE);
-            GraphicController.getTimlines()[1][i + 1].setFill(Color.BLUE);
             if (i == f) {
                 timeLines[0][i].setCardName("null");
-                GraphicController.getTimlines()[1][i + 1].setFill(Color.BLACK);
+                timeLines[0][i].setImageLink("/CardImage/null.png");
             }
             if (i == s) {
                 timeLines[1][i].setCardName("null");
-                GraphicController.getTimlines()[0][i + 1].setFill(Color.BLACK);
+                timeLines[0][i].setImageLink("/CardImage/null.png");
             }
+            GraphicController.getTimelinesCard()[1][i] = timeLines[0][i];
+            GraphicController.getTimelinesCard()[0][i] = timeLines[1][i];
+            GraphicController.getTimlines()[1][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[1][i].getImageLink()).toExternalForm())));
+            GraphicController.getTimlines()[0][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(GraphicController.getTimelinesCard()[0][i].getImageLink()).toExternalForm())));
         }
         playersRound[0] = playersRound[1] = 4;
         GraphicController.getPlayersRound()[0] = GraphicController.getPlayersRound()[1] = 4;

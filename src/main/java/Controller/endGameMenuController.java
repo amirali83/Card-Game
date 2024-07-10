@@ -6,11 +6,18 @@ import View.*;
 
 public class endGameMenuController {
     public Label winner;
+    public Label trophy;
     boolean bringUp = false;
 
     public void bringUp(MouseEvent mouseEvent) {
         if (!bringUp) {
             winner.setText(String.format("%s won", GraphicController.getWinner()));
+            if (GraphicController.getGameType() == 1) {
+                trophy.setText("coins +50\nXP +100");
+            }
+            else {
+                trophy.setText(String.format("coins +%d\nXP +100", 50 + GraphicController.getBet()));
+            }
             bringUp = true;
         }
     }

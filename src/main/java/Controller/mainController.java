@@ -69,7 +69,7 @@ public class mainController {
         XP.setText(Integer.toString(user.getXP()));
         Coins.setText(Integer.toString(user.getCoins()));
         Level.setText(Integer.toString(user.getLevel()));
-        if (user.getXP() > user.getLevel() * 1000) {
+        if (user.getXP() >= user.getLevel() * 1000) {
             user.setXP(user.getXP() - user.getLevel() * 1000);
             user.setLevel(user.getLevel() + 1);
             LevelUpMenuGraphic menu = new LevelUpMenuGraphic();

@@ -21,6 +21,8 @@ public enum Outputs {
     CANT_PLACE_CARD_HERE,
     PLAYER1_WON,
     PLAYER2_WON,
+    DRAW,
+
     ;
 
 }

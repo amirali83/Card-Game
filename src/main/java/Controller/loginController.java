@@ -58,12 +58,21 @@ public class loginController {
                 }
             }
             else {
-                System.out.println("GO TO GAME");
-                playMenuGraphic menu = new playMenuGraphic();
-                try {
-                    menu.start(GraphicController.getStage());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+                if (GraphicController.getGameType() == 1) {
+                    System.out.println("GO TO GAME");
+                    playMenuGraphic menu = new playMenuGraphic();
+                    try {
+                        menu.start(GraphicController.getStage());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    betMoneyMenuGraphic menu = new betMoneyMenuGraphic();
+                    try {
+                        menu.start(GraphicController.getStage());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }

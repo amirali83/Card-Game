@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import Module.*;
 
+import java.time.chrono.MinguoChronology;
 import java.util.ArrayList;
 
 public class gameHistoryController {
@@ -45,14 +46,26 @@ public class gameHistoryController {
         ArrayList<GameHistoryData> history = new ArrayList<>();
         String []line, time;
         String win;
-        for (int i = 0; i < GraphicController.getUser().getGameHistory().size(); i++) {
-            line = GraphicController.getUser().getGameHistory().get(i).split(":");
-            time = line[0].split("%");
-            //System.out.println(line.toString());
-            if (line[1].equals("1")) win = "Won";
-            else win = "Lost";
-            history.add(new GameHistoryData(Integer.toString(i + 1), time[0] + "/" + time[1] + "/" + time[2],
-                    time[3] + ":" + time[4] + ":" + time[5], win, line[2], line[3], line[4]));
+        System.out.println("####################################################################################");
+        System.out.println(GraphicController.getUser().getGameHistory().size());
+        System.out.println(GraphicController.getUser().getGameHistory().get(0));
+        System.out.println(GraphicController.getUser().getGameHistory().get(1));
+        System.out.println("####################################################################################");
+        if (GraphicController.getUser().getGameHistory().size() != 0 && GraphicController.getUser().getGameHistory().size() != 1) {
+            for (int i = 1; i < GraphicController.getUser().getGameHistory().size(); i++) {
+                line = GraphicController.getUser().getGameHistory().get(i).split(":");
+                System.out.println("####################################################################################");
+                System.out.println(line[0]);
+                System.out.println(line[1]);
+                System.out.println("####################################################################################");
+                time = line[0].split("%");
+                //System.out.println(line.toString());
+                if (line[1].equals("1")) win = "Won";
+                else if (line[1].equals("0")) win = "Lost";
+                else win = "Draw";
+                history.add(new GameHistoryData(Integer.toString(i), time[0] + "/" + time[1] + "/" + time[2],
+                        time[3] + ":" + time[4] + ":" + time[5], win, line[2], line[3], line[4]));
+            }
         }
 
         for (int i = (pageNum - 1) * rowNum; i < Math.min(pageNum * rowNum, history.size()); i++) {

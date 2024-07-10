@@ -16,24 +16,24 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="1">
                <children>
-                  <Button onMouseClicked="#prev" mnemonicParsing="false" text="prev" />
-                  <Button onMouseClicked="#back" mnemonicParsing="false" text="back" />
-                  <Button onMouseClicked="#next" mnemonicParsing="false" text="next" />
+                  <Button mnemonicParsing="false" onMouseClicked="#prev" text="prev" />
+                  <Button mnemonicParsing="false" onMouseClicked="#back" text="back" />
+                  <Button mnemonicParsing="false" onMouseClicked="#next" text="next" />
                </children>
             </HBox>
             <TableView fx:id="Table" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                  <TableColumn prefWidth="65.20001524686813" text="number" />
-                <TableColumn prefWidth="160.39996337890625" text="Date">
+                  <TableColumn prefWidth="65.20001524686813" resizable="false" text="number" />
+                <TableColumn prefWidth="160.39996337890625" resizable="false" text="Date">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="Column X" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" resizable="false" text="day" />
+                        <TableColumn prefWidth="75.0" resizable="false" text="time" />
                      </columns>
                   </TableColumn>
-                <TableColumn prefWidth="75.0" text="Win\Los" />
-                  <TableColumn prefWidth="168.79998779296875" text="Opponent name" />
-                  <TableColumn prefWidth="80.79998779296875" text="Level" />
-                  <TableColumn prefWidth="57.79998779296875" text="Trophy" />
+                <TableColumn prefWidth="75.0" resizable="false" text="Win\Los" />
+                  <TableColumn prefWidth="168.79998779296875" resizable="false" text="Opponent name" />
+                  <TableColumn prefWidth="80.79998779296875" resizable="false" text="Level" />
+                  <TableColumn prefWidth="57.79998779296875" resizable="false" text="Trophy" />
               </columns>
             </TableView>
          </children>

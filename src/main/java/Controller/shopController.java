@@ -96,6 +96,12 @@ public class shopController {
                 alert.showAndWait();
                 return;
             }
+            if (GraphicController.getUser().getLevel() < ((NormalCard) temp).getUpgradeLevel()) {
+                alert.setHeaderText("Error");
+                alert.setHeaderText("Your level is not high enough");
+                alert.showAndWait();
+                return;
+            }
             ButtonType ok = new ButtonType("OK");
             ButtonType cancel = new ButtonType("Cancel");
             alert = new Alert(Alert.AlertType.NONE, "", ok, cancel);
