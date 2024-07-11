@@ -31,7 +31,7 @@ public class loginMenuGraphic extends Application{
         Media media = new Media(getClass().getResource("/Songs/song1.mp3").toExternalForm());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0);
         mediaPlayer.play();
 
         GraphicController.setStage(stage);

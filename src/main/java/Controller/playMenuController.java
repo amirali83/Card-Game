@@ -167,20 +167,21 @@ public class playMenuController {
             }
         }
         else if (out.equals(Outputs.END_OF_TIMELINE)) {
-            kickAbilityMenuGraphic menu = new kickAbilityMenuGraphic();
+            ////////////////////////////////////problem with timeline it will not wait
+            GraphicController.setPowerAttackTurn(GraphicController.getOpponent().getUsername());
+            kickAbilityMenuGraphic menu = new kickAbilityMenuGraphic(0);
             try {
                 menu.start(new Stage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            GraphicController.getLives()[0] -= (int) (20 - (GraphicController.getPowerAttack()) / 5);
-            menu = new kickAbilityMenuGraphic();
+            GraphicController.setPowerAttackTurn(GraphicController.getUser().getUsername());
+            menu = new kickAbilityMenuGraphic(1);
             try {
                 menu.start(new Stage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            GraphicController.getLives()[1] -= (int) (20 - (GraphicController.getPowerAttack()) / 5);
         }
         reset();
     }

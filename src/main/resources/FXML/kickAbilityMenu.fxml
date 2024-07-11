@@ -6,20 +6,26 @@
 
 <AnchorPane prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.kickAbilityMenuController">
    <children>
-      <GridPane layoutY="16.0" prefHeight="191.0" prefWidth="250.0">
+      <GridPane layoutY="1.0" prefHeight="250.0" prefWidth="250.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="74.4" minHeight="10.0" prefHeight="74.4" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="77.4" minHeight="10.0" prefHeight="65.6" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="109.4" minHeight="10.0" prefHeight="109.4" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Slider fx:id="players" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.rowIndex="1" />
-            <Slider fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefWidth="200.0" GridPane.rowIndex="1" />
+            <Slider fx:id="players" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.rowIndex="2" />
+            <Slider fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefWidth="200.0" GridPane.rowIndex="2" />
             <Label prefHeight="53.0" prefWidth="242.0" text="POWER ATTACK">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="turn" alignment="CENTER" contentDisplay="CENTER" prefHeight="68.0" prefWidth="276.0" text="Amiralis Turn" textAlignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold Italic" size="31.0" />
                </font>
             </Label>
          </children>

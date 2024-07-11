@@ -34,6 +34,7 @@ public class GraphicController {
     private static MediaPlayer mediaPlayer;
     private static long time;
     private static int powerAttack;
+    private static String powerAttackTurn;
 
     public static void setStage(Stage stage) {GraphicController.stage = stage;}
     public static void setScene(Scene scene) {GraphicController.scene = scene;}
@@ -58,6 +59,7 @@ public class GraphicController {
     public static void setMediaPlayer(MediaPlayer mediaPlayer) {GraphicController.mediaPlayer = mediaPlayer;}
     public static void setTime(long time) {GraphicController.time = time;}
     public static void setPowerAttack(int powerAttack) {GraphicController.powerAttack = powerAttack;}
+    public static void setPowerAttackTurn(String turn) {GraphicController.powerAttackTurn = turn;}
 
     public static Stage getStage() {return stage;}
     public static Scene getScene() {return scene;}
@@ -82,4 +84,5 @@ public class GraphicController {
     public static MediaPlayer getMediaPlayer() {return mediaPlayer;}
     public static long getTime() {return time;}
     public static int getPowerAttack() {return powerAttack;}
+    public static String getPowerAttackTurn() {return powerAttackTurn;}
 }

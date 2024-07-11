@@ -32,6 +32,8 @@ public class twoPlayerGame {
     private static int winner;
     private static int []live = new int[2];
 
+    public static void setLive(int []live) {twoPlayerGame.live[0] = live[0]; twoPlayerGame.live[1] = live[1];}
+
     public static int start(User user1, User user2) {
         twoPlayerGame.users[0] = user1;
         twoPlayerGame.users[1] = user2;
@@ -133,20 +135,19 @@ public class twoPlayerGame {
     }
 
     public static Outputs startGame(String command) {
-        return Outputs.END_OF_TIMELINE;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//        if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
-//            showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
-//        } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
-//            return placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
-//        } else if (Inputs.HELP.getMatcher(command).matches()){
-//            help();
-//        } else
-//            System.out.println("invalid input");
-//        //if (gameFinished)
-//        //break;
-//        System.out.println("Player in charge " + (inCharge + 1));
-//        return null;
+        if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
+            showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
+        } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
+            return placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
+        } else if (Inputs.HELP.getMatcher(command).matches()){
+            help();
+        } else
+            System.out.println("invalid input");
+        //if (gameFinished)
+        //break;
+        System.out.println("Player in charge " + (inCharge + 1));
+        return null;
     }
 
     private static void help() {
@@ -209,7 +210,7 @@ public class twoPlayerGame {
         //completeCard();
 
         if (gameStarter != inCharge) {
-            if (playersRound[gameStarter] == 0) {
+            if (playersRound[gameStarter] <= 0) {
                 System.out.println("in timeline");
                 inTimeLine = true;
                 boolean fin = playTimeLine();
@@ -341,11 +342,12 @@ public class twoPlayerGame {
         if (timeLines[1][i].getCardName().equals("shield"))
             cardAD1 = 0;
 
-        if (!inTimeLine) {
+        if (inTimeLine) {
             if (timeLines[0][i].getCardName().equals("heal"))
                 live[0] += 50;
             if (timeLines[1][i].getCardName().equals("heal"))
                 live[1] += 50;
+            GraphicController.setLives(live);
         }
     }
 
@@ -375,10 +377,13 @@ public class twoPlayerGame {
         }
 
         else if (card.getCardName().equals("hole fixer")) {
+            int notInCharge;
+            if (inCharge == 0) notInCharge = 1;
+            else notInCharge = 0;
             for (int i = 0; i < 21; i++)
                 if (timeLines[inCharge][i].getCardName().equals("null")) {
                     timeLines[inCharge][i] = new Card();
-                    GraphicController.getTimlines()[inCharge][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[inCharge][i].getImageLink()).toExternalForm())));
+                    GraphicController.getTimlines()[notInCharge][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[inCharge][i].getImageLink()).toExternalForm())));
                 }
             GraphicController.setTimelines(timeLines);
         }
@@ -484,7 +489,8 @@ public class twoPlayerGame {
             in = Math.abs(r.nextInt()) % 21;
             if (timeLines[i][in].getCardName().equals("empty")) {
                 timeLines[i][in].setCardName("null");
-                timeLines[i][f].setCardName("empty");
+                timeLines[i][in].setImageLink("/CardImage/null.png");
+                timeLines[i][f] = new Card();
                 if (i == 0) {
                     GraphicController.getTimlines()[1][in].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][in].getImageLink()).toExternalForm())));
                     GraphicController.getTimlines()[1][f].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[i][f].getImageLink()).toExternalForm())));

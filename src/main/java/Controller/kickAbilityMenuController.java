@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -19,9 +20,12 @@ public class kickAbilityMenuController implements Initializable {
     public Slider players;
     @FXML
     public Slider game;
+    public Label turn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //label.setText("This Label was initialized.");
+        turn.setText(GraphicController.getPowerAttackTurn() + "'s Turn");
         players.setValue(100);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(10),

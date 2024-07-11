@@ -15,6 +15,11 @@ import static java.awt.event.KeyEvent.KEY_PRESSED;
 
 
 public class kickAbilityMenuGraphic extends Application {
+    int turn;
+    public kickAbilityMenuGraphic(int i) {
+        turn = i;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -39,6 +44,8 @@ public class kickAbilityMenuGraphic extends Application {
                     if (keyEvent.getCode() == (KeyCode.SPACE) || keyEvent.getCode() == KeyCode.R) {
                     System.out.println("nfjnbjfnjfnvk");
                     stage.close();
+                    GraphicController.getLives()[turn] -= (int) (20 - (GraphicController.getPowerAttack()) / 5);
+                    twoPlayerGame.setLive(GraphicController.getLives());
                     return;
                 }
             }
