@@ -21,7 +21,10 @@
                   <Font name="System Bold Italic" size="46.0" />
                </font>
             </Label>
-            <TextField fx:id="bet" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="186.0" promptText="place your ber" GridPane.rowIndex="1" />
+            <TextField fx:id="bet" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="186.0" promptText="place your bet" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font></TextField>
             <Button mnemonicParsing="false" onMouseClicked="#next" text="Contoniue" GridPane.rowIndex="2" />
          </children>
       </GridPane>

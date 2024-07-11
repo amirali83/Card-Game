@@ -12,8 +12,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="282.40001525878904" minHeight="10.0" prefHeight="154.39999237060547" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="282.40001525878904" minHeight="10.0" prefHeight="78.40000762939454" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="257.4" minHeight="10.0" prefHeight="175.5999923706055" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="282.40001525878904" minHeight="10.0" prefHeight="92.20000000000002" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="257.4" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <HBox alignment="CENTER" prefHeight="134.0" prefWidth="350.0" spacing="40.0" GridPane.rowIndex="2">
@@ -27,7 +27,7 @@
                   <Font name="System Bold Italic" size="52.0" />
                </font>
             </Label>
-            <Label fx:id="trophy" alignment="CENTER" prefHeight="41.0" prefWidth="272.0" text="Label" GridPane.rowIndex="1">
+            <Label fx:id="trophy" alignment="CENTER" contentDisplay="CENTER" prefHeight="86.0" prefWidth="272.0" text="Label" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="23.0" />
                </font>

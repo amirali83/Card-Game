@@ -84,13 +84,14 @@ public class shopController {
         }
         int cardIndex = (pagenum - 1 ) * 6 + cardSelected - 1;
         Card temp = GraphicController.getAllCards().get(cardIndex);
-        if (temp.getClass().equals(EspecialCard.class)) {
+        if (temp.getClass().equals(EspecialCard.class) && checkUserhave(temp)) {
             alert.setHeaderText("Error");
             alert.setContentText("This card can not be upgraded");
             alert.showAndWait();
+            return;
         }
         if (checkUserhave(temp)) {
-            if (GraphicController.getUser().getCoins() < temp.getCardValue()) {
+            if (GraphicController.getUser().getCoins() < ((NormalCard) temp).getUpgradeCost()) {
                 alert.setHeaderText("Error");
                 alert.setHeaderText("You don't have enough money");
                 alert.showAndWait();
@@ -114,7 +115,7 @@ public class shopController {
                 }
             });
         } else {
-            if (GraphicController.getUser().getCoins() < ((NormalCard) temp).getUpgradeCost()) {
+            if (GraphicController.getUser().getCoins() < temp.getCardValue()) {
                 alert.setHeaderText("Error");
                 alert.setContentText("You don't have enough money");
                 alert.showAndWait();

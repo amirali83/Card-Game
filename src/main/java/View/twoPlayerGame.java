@@ -219,15 +219,15 @@ public class twoPlayerGame {
                         getTrophy(users[0], users[1]);
                         GraphicController.setWinner(users[0].getUsername());
                         return Outputs.PLAYER1_WON;
-                    } else if (live[1] > 0) {
+                    }
+                    if (live[1] > 0) {
                         System.out.println("user2 won");
                         getTrophy(users[1], users[0]);
                         GraphicController.setWinner(users[1].getUsername());
                         return Outputs.PLAYER2_WON;
-                    } else {
+                    }
                         System.out.println("draw");
                         return Outputs.DRAW;
-                    }
                 }
                 inTimeLine = false;
                 resetTimeline();
@@ -257,7 +257,7 @@ public class twoPlayerGame {
             }
             if (i == s) {
                 timeLines[1][i].setCardName("null");
-                timeLines[0][i].setImageLink("/CardImage/null.png");
+                timeLines[1][i].setImageLink("/CardImage/null.png");
             }
             GraphicController.getTimelinesCard()[1][i] = timeLines[0][i];
             GraphicController.getTimelinesCard()[0][i] = timeLines[1][i];
@@ -363,15 +363,19 @@ public class twoPlayerGame {
             if (s != -1) replaceNull(1, s);
         }
 
-        else if (card.getCardName().equals("fixer")) {
+        else if (card.getCardName().equals("hole fixer")) {
             for (int i = 0; i < 21; i++)
-                if (timeLines[inCharge][i].getCardName().equals("null"))
-                    timeLines[inCharge][i].setCardName("empty");
+                if (timeLines[inCharge][i].getCardName().equals("null")) {
+                    timeLines[inCharge][i] = new Card();
+                    GraphicController.getTimlines()[inCharge][i + 1].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(timeLines[inCharge][i].getImageLink()).toExternalForm())));
+                }
+            GraphicController.setTimelines(timeLines);
         }
 
         else if (card.getCardName().equals("reducer")) {
             playersRound[0]--;
             playersRound[1]--;
+            GraphicController.setPlayersRound(playersRound);
         }
 
         else if (card.getCardName().equals("thief")) {
@@ -425,13 +429,18 @@ public class twoPlayerGame {
         }
 
         else if (card.getCardName().equals("copy")) {
-            System.out.println("Enter the index: ");
-            int in = Integer.parseInt(sc.nextLine()) - 1;
+            Random rr = new Random();
+            int in;
+            do {
+                in = Math.abs(rr.nextInt()) % 5;
+            } while (playersdeck[inCharge][in].getCardName().equals("copy"));
             try {
                 playersdeck[inCharge][5] = (Card) playersdeck[inCharge][in].clone();
+                GraphicController.getPlayersDeck()[inCharge][5].setFill(new ImagePattern(new Image(twoPlayerGame.class.getResource(playersdeck[inCharge][5].getImageLink()).toExternalForm())));
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            GraphicController.setPlayersDeck(playersdeck);
             usedEspecial[inCharge].add(2);
         }
 

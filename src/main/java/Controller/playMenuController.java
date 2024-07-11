@@ -152,13 +152,12 @@ public class playMenuController {
             } else if (out.equals(Outputs.PLAYER2_WON)) {
                 GraphicController.getUser().getGameHistory().add(time + ":0:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
                 GraphicController.getOpponent().getGameHistory().add(time + ":1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
-            } else {
+            } else if (out.equals(Outputs.DRAW)) {
                 GraphicController.getUser().getGameHistory().add(time + ":-1:" + GraphicController.getOpponent().getUsername() + ":" + GraphicController.getOpponent().getLevel() + ":" + "10");
                 GraphicController.getOpponent().getGameHistory().add(time + ":-1:" + GraphicController.getUser().getUsername() + ":" + GraphicController.getUser().getLevel() + ":" + "10");
             }
             AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
             AppData.saveDataOtherThanUsername(GraphicController.getUser());
-            GraphicController.setOpponent(null);
             endGameMenuGraphic menu = new endGameMenuGraphic();
             try {
                 menu.start(GraphicController.getStage());

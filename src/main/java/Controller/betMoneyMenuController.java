@@ -27,12 +27,14 @@ public class betMoneyMenuController {
                 throw new RuntimeException(e);
             }
         }
-        GraphicController.setBet(Integer.parseInt(bet.getText()));
-        playMenuGraphic menu = new playMenuGraphic();
-        try {
-            menu.start(GraphicController.getStage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        else {
+            GraphicController.setBet(Integer.parseInt(bet.getText()));
+            playMenuGraphic menu = new playMenuGraphic();
+            try {
+                menu.start(GraphicController.getStage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

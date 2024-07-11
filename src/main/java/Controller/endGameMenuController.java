@@ -32,6 +32,7 @@ public class endGameMenuController {
     }
 
     public void quit(MouseEvent mouseEvent) {
+        GraphicController.setOpponent(null);
         mainMenuGraphic menu = new mainMenuGraphic();
         try {
             menu.start(GraphicController.getStage());
