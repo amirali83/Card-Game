@@ -140,7 +140,7 @@ public class playMenuController {
             alert.setHeaderText("Can't place card here");
             alert.showAndWait();
         }
-        else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON)) {
+        else if (out.equals(Outputs.PLAYER1_WON) || out.equals(Outputs.PLAYER2_WON) || out.equals(Outputs.DRAW)) {
             AppData.saveDataOtherThanUsername(GraphicController.getOpponent());
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();

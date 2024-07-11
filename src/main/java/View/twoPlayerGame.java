@@ -231,6 +231,14 @@ public class twoPlayerGame {
                 }
                 inTimeLine = false;
                 resetTimeline();
+                if (inCharge == 0) {
+                    inCharge = 1;
+                    GraphicController.setInCharge(inCharge);
+                }
+                else {
+                    inCharge = 0;
+                    GraphicController.setInCharge(inCharge);
+                }
             }
         }
 
