@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import View.*;
 import Module.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -164,6 +165,22 @@ public class playMenuController {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+        else if (out.equals(Outputs.END_OF_TIMELINE)) {
+            kickAbilityMenuGraphic menu = new kickAbilityMenuGraphic();
+            try {
+                menu.start(new Stage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            GraphicController.getLives()[0] -= (int) (20 - (GraphicController.getPowerAttack()) / 5);
+            menu = new kickAbilityMenuGraphic();
+            try {
+                menu.start(new Stage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            GraphicController.getLives()[1] -= (int) (20 - (GraphicController.getPowerAttack()) / 5);
         }
         reset();
     }

@@ -133,18 +133,20 @@ public class twoPlayerGame {
     }
 
     public static Outputs startGame(String command) {
-        if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
-            showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
-        } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
-            return placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
-        } else if (Inputs.HELP.getMatcher(command).matches()){
-            help();
-        } else
-            System.out.println("invalid input");
-        //if (gameFinished)
-        //break;
-        System.out.println("Player in charge " + (inCharge + 1));
-        return null;
+        return Outputs.END_OF_TIMELINE;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//        if (Inputs.SHOW_CARD_INFORMATION.getMatcher(command).matches()) {
+//            showCardInformation(Inputs.SHOW_CARD_INFORMATION.getMatcher(command));
+//        } else if (Inputs.PLACE_CARD_NUMBER.getMatcher(command).matches()) {
+//            return placeCard(Inputs.PLACE_CARD_NUMBER.getMatcher(command));
+//        } else if (Inputs.HELP.getMatcher(command).matches()){
+//            help();
+//        } else
+//            System.out.println("invalid input");
+//        //if (gameFinished)
+//        //break;
+//        System.out.println("Player in charge " + (inCharge + 1));
+//        return null;
     }
 
     private static void help() {
@@ -239,6 +241,7 @@ public class twoPlayerGame {
                     inCharge = 0;
                     GraphicController.setInCharge(inCharge);
                 }
+                return Outputs.END_OF_TIMELINE;
             }
         }
 
